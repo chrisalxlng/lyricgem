@@ -3,7 +3,7 @@ const DEEZER_TRENDING_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1
 const DEEZER_CHARTS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/3155776842";
 const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 
-function getAPIData (api_url, count, type) {
+function getAPIData (api_url, count, type, preID) {
     fetch(api_url, {
 	"method": "GET",
     "headers": 
@@ -18,16 +18,16 @@ function getAPIData (api_url, count, type) {
     .then(function (object) {
         if (type == "grid") {
             for (let index = 1; index < count + 1; index++) {
-                document.getElementById("title-" + index).innerHTML = object.tracks.data[index-1].title;
-                document.getElementById("artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
-                document.getElementById("cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+                document.getElementById(preID + "title-" + index).innerHTML = object.tracks.data[index-1].title;
+                document.getElementById(preID + "artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
+                document.getElementById(preID + "cover-" + index).src = object.tracks.data[index-1].album.cover_small;
             }
         }
         else if (type == "search") {
             for (let index = 1; index < count + 1; index++) {
-                document.getElementById("res-title-" + index).innerHTML = object.data[index-1].title;
-                document.getElementById("res-artist-" + index).innerHTML = object.data[index-1].artist.name;
-                document.getElementById("res-cover-" + index).src = object.data[index-1].album.cover_small;
+                document.getElementById(preID + "title-" + index).innerHTML = object.data[index-1].title;
+                document.getElementById(preID + "artist-" + index).innerHTML = object.data[index-1].artist.name;
+                document.getElementById(preID + "cover-" + index).src = object.data[index-1].album.cover_small;
             }
         } else {
 
@@ -39,32 +39,32 @@ function getAPIData (api_url, count, type) {
     });
 }
 
-function getGridData(api_url, count) {
-    getAPIData(api_url, count, "grid");
+function getGridData(api_url, count, preID) {
+    getAPIData(api_url, count, "grid", preID);
 }
 
-function getSearchData(api_url, count) {
-    getAPIData(api_url, count, "search");
+function getSearchData(api_url, count, preID) {
+    getAPIData(api_url, count, "search", preID);
 }
 
 function getDeezerSearchURL(query) {
     return DEEZER_SEARCH_URL + query;
 }
 
-function removeSearchResults(count) {
+function removeSearchResults(count, preID) {
     for (let index = 1; index < count + 1; index++) {
-        document.getElementById("res-title-" + index).innerHTML = "";
-        document.getElementById("res-artist-" + index).innerHTML = "";
-        document.getElementById("res-cover-" + index).src = "";
+        document.getElementById(preID + "title-" + index).innerHTML = "";
+        document.getElementById(preID + "artist-" + index).innerHTML = "";
+        document.getElementById(preID + "cover-" + index).src = "";
     }
 }
 
-function displaySearchResults(element, count) {
+function displaySearchResults(element, count, preID) {
     var searchFieldValue = getDeezerSearchURL(element.value);
     if (searchFieldValue != DEEZER_SEARCH_URL) {
-        getSearchData(searchFieldValue, count);
+        getSearchData(searchFieldValue, count, preID);
     }  else {
-        removeSearchResults(count);
+        removeSearchResults(count, preID);
     } 
 }
 
