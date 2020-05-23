@@ -1,4 +1,9 @@
-function getAPIData (api_url, count) {
+//API URLs:
+const DEEZER_TRENDING_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1111143121";
+const DEEZER_CHARTS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/3155776842";
+const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
+
+function getAPIData (api_url, count, type) {
     fetch(api_url, {
 	"method": "GET",
     "headers": 
@@ -11,23 +16,56 @@ function getAPIData (api_url, count) {
         return response.json();
     })
     .then(function (object) {
-        for (let index = 1; index < count + 1; index++) {
-            document.getElementById("title-" + index).innerHTML = object.tracks.data[index-1].title;
-            document.getElementById("artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
-            document.getElementById("cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+        if (type == "grid") {
+            for (let index = 1; index < count + 1; index++) {
+                document.getElementById("title-" + index).innerHTML = object.tracks.data[index-1].title;
+                document.getElementById("artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
+                document.getElementById("cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+            }
         }
+        else if (type == "search") {
+            for (let index = 1; index < count + 1; index++) {
+                document.getElementById("res-title-" + index).innerHTML = object.data[index-1].title;
+                document.getElementById("res-artist-" + index).innerHTML = object.data[index-1].artist.name;
+                document.getElementById("res-cover-" + index).src = object.data[index-1].album.cover_small;
+            }
+        } else {
+
+        }
+        
     }) 
     .catch(function (error) {
-        console.error("fetch error");
         console.error(error);
     });
 }
 
 function getGridData(api_url, count) {
-    getAPIData(api_url, count);
+    getAPIData(api_url, count, "grid");
 }
 
-var deezerTrending_url = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1111143121";
-var deezerTrending_command = "object.tracks.data";
+function getSearchData(api_url, count) {
+    getAPIData(api_url, count, "search");
+}
 
-getGridData(deezerTrending_url, 4);
+function getDeezerSearchURL(query) {
+    return DEEZER_SEARCH_URL + query;
+}
+
+function removeSearchResults(count) {
+    for (let index = 1; index < count + 1; index++) {
+        document.getElementById("res-title-" + index).innerHTML = "";
+        document.getElementById("res-artist-" + index).innerHTML = "";
+        document.getElementById("res-cover-" + index).src = "";
+    }
+}
+
+function displaySearchResults(element, count) {
+    var searchFieldValue = getDeezerSearchURL(element.value);
+    if (searchFieldValue != DEEZER_SEARCH_URL) {
+        getSearchData(searchFieldValue, count);
+    }  else {
+        removeSearchResults(count);
+    } 
+}
+
+
