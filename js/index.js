@@ -2,6 +2,8 @@
 const DEEZER_TRENDING_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1111143121";
 const DEEZER_CHARTS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/3155776842";
 const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
+const DEEZER_TRACK_BY_ID_URL = "https://deezerdevs-deezer.p.rapidapi.com/track/";
+const CANARADO_LYRICS_URL = "https://canarado-lyrics.p.rapidapi.com/lyrics/";
 
 //
 //-------------------------------------------------------------------------------------------
@@ -25,12 +27,12 @@ function getAPIData (api_url, count, type, preID) {
         return response.json();
     })
     .then(function (object) {
-        if (object.data.length == 0) {
+        if (type == "search" && object.data.length == 0) { 
             removeSearchResultElements(count, preID);
             displayNoSearchResultsFound();
         } else {
             //if there are not enough elements to display, only display the provided elements
-            if (object.data.length < count) {
+            if (type == "search" && object.data.length < count) {
                 count = object.data.length;
             }
             if (type == "grid") {
@@ -38,6 +40,7 @@ function getAPIData (api_url, count, type, preID) {
                     document.getElementById(preID + "-title-" + index).innerHTML = object.tracks.data[index-1].title;
                     document.getElementById(preID + "-artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
                     document.getElementById(preID + "-cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+                    document.getElementById(preID + "-search-result-element-" + index).href = "song.html?id=" + object.tracks.data[index-1].id;
                 }
             }
             else if (type == "search") {
@@ -45,7 +48,31 @@ function getAPIData (api_url, count, type, preID) {
                     document.getElementById(preID + "-title-" + index).innerHTML = object.data[index-1].title;
                     document.getElementById(preID + "-artist-" + index).innerHTML = object.data[index-1].artist.name;
                     document.getElementById(preID + "-cover-" + index).src = object.data[index-1].album.cover_small;
+                    document.getElementById(preID + "-search-result-element-" + index).href = "song.html?id=" + object.data[index-1].id;
                 }
+            } 
+            else if (type == "song") {
+                document.getElementById("title").innerHTML = object.title_short;
+                document.getElementById("artist").innerHTML = object.artist.name;
+                document.getElementById("album").innerHTML = object.album.title;
+                document.getElementById("release-year").innerHTML = object.album.release_date;
+                document.getElementById("deezer-link").href = object.link;
+                document.getElementById("cover").src = object.album.cover_medium;
+                var playPauseButton = document.getElementById("song-preview");
+                var song = new Audio(object.preview);
+                playPauseButton.addEventListener("click", function() {
+                    if (song.currentTime == 0) {
+                        song.play();
+                    } 
+                    else if (song.currentTime < 29 && song.currentTime != 0) {
+                        song.pause();
+                        song.currentTime = 0;
+                    } else {
+                        song.currentTime = 0;
+                        song.play();
+                    }
+                });
+                getLyrics(getLyricsURL(object.title_short, object.artist.name));
             } else {
     
             }
@@ -158,6 +185,60 @@ function initSearchResultElements(element, count, preID) {
 //GET GRID DATA
 function getGridData(api_url, count, preID) {
     getAPIData(api_url, count, "grid", preID);
+}
+
+//
+//-------------------------------------------------------------------------------------------
+//
+//GET SONG DATA
+function getDeezerSongLink(id) {
+    return DEEZER_TRACK_BY_ID_URL + id;
+}
+
+function getDeezerSongID(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get('id');
+    return id;
+}
+
+window.onload = function() {
+    if (window.location.href.indexOf('song.html') > -1) {
+        var songID = getDeezerSongID(window.location.search);
+        var url = getDeezerSongLink(songID);
+        getAPIData(url, 0, "song", "");
+    } 
+  }
+
+//
+//-------------------------------------------------------------------------------------------
+//
+//GET SONG LYRICS
+function getLyricsURL(title, artist) {
+    return CANARADO_LYRICS_URL + title + " " + artist;
+}
+
+function getLyrics(url) {
+    fetch(url, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
+            "x-rapidapi-key": "486af7d15cmsh8635265f7c2bdc9p1b2081jsnf5c14c14946b"
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(function (object) {
+        if (object.status.code == 200) {
+            var songLyrics = object.content[0].lyrics;
+            document.getElementById("song-lyrics").innerHTML = "<pre>" + object.content[0].lyrics + "</pre>";
+        } else {
+            document.getElementById("song-lyrics").innerHTML = "Keinen Songtext gefunden.";
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
 
