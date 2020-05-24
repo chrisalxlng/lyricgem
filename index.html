@@ -8,11 +8,126 @@
 </head>
 <body>
 
-    <input id="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
-    <div id="search-result-container"></div>
+    <nav>
+        <span class="logo">lyricgem</span>
+        <ul>
+            <li><a href="#"></a>Home</li>
+            <li><a href="#"></a>Charts</li>
+            <li><a href="#"></a>Trending</li>
+        </ul>
+    </nav>
 
-    <a href="song.html?id=908604612"><button>Blinding Lights</button></a>
-    
+    <section class="header-section">
+        <div>
+            <h1>Suche Songtexte aus Millionen von Songs</h1>
+            <div class="searchbar-wrapper">
+                <input id="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
+                <div id="search-result-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="charts-section">
+        <div>
+            <div class="h2-button-wrapper">
+                <h2>Top Charts Weltweit</h2>
+                <a href="#"><button>Mehr anzeigen</button></a>
+            </div>
+            <div class="song-grid">
+                <div class="song-grid-element">
+                    <img id="charts-cover-1">
+                    <p id="charts-title-1"></p>
+                    <p id="charts-artist-1"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-2">
+                    <p id="charts-title-2"></p>
+                    <p id="charts-artist-2"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-3">
+                    <p id="charts-title-3"></p>
+                    <p id="charts-artist-3"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-4">
+                    <p id="charts-title-4"></p>
+                    <p id="charts-artist-4"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-5">
+                    <p id="charts-title-5"></p>
+                    <p id="charts-artist-5"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-6">
+                    <p id="charts-title-6"></p>
+                    <p id="charts-artist-6"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-7">
+                    <p id="charts-title-7"></p>
+                    <p id="charts-artist-7"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="charts-cover-8">
+                    <p id="charts-title-8"></p>
+                    <p id="charts-artist-8"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trending-section">
+        <div>
+            <div class="h2-button-wrapper">
+                <h2>Trending in Deutschland</h2>
+                <a href="#"><button>Mehr anzeigen</button></a>
+            </div>
+            <div class="song-grid">
+                <div class="song-grid-element">
+                    <img id="trending-cover-1">
+                    <p id="trending-title-1"></p>
+                    <p id="trending-artist-1"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-2">
+                    <p id="trending-title-2"></p>
+                    <p id="trending-artist-2"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-3">
+                    <p id="trending-title-3"></p>
+                    <p id="trending-artist-3"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-4">
+                    <p id="trending-title-4"></p>
+                    <p id="trending-artist-4"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-5">
+                    <p id="trending-title-5"></p>
+                    <p id="trending-artist-5"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-6">
+                    <p id="trending-title-6"></p>
+                    <p id="trending-artist-6"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-7">
+                    <p id="trending-title-7"></p>
+                    <p id="trending-artist-7"></p>
+                </div>
+                <div class="song-grid-element">
+                    <img id="trending-cover-8">
+                    <p id="trending-title-8"></p>
+                    <p id="trending-artist-8"></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="js/index.js"></script>
 </body>
