@@ -5,6 +5,7 @@ const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 
 //Variables:
 var searchResultElementsCreated = false;
+var noSearchResultElementsCreated = false;
 
 function getAPIData (api_url, count, type, preID) {
     fetch(api_url, {
@@ -19,27 +20,48 @@ function getAPIData (api_url, count, type, preID) {
         return response.json();
     })
     .then(function (object) {
-        if (type == "grid") {
-            for (let index = 1; index < count + 1; index++) {
-                document.getElementById(preID + "-title-" + index).innerHTML = object.tracks.data[index-1].title;
-                document.getElementById(preID + "-artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
-                document.getElementById(preID + "-cover-" + index).src = object.tracks.data[index-1].album.cover_small;
-            }
-        }
-        else if (type == "search") {
-            for (let index = 1; index < count + 1; index++) {
-                document.getElementById(preID + "-title-" + index).innerHTML = object.data[index-1].title;
-                document.getElementById(preID + "-artist-" + index).innerHTML = object.data[index-1].artist.name;
-                document.getElementById(preID + "-cover-" + index).src = object.data[index-1].album.cover_small;
-            }
+        if (object.data.length == 0) {
+            removeSearchResultElements(count, preID);
+            displayNoSearchResultsFound();
         } else {
-
-        }
-        
+            //if there are not enough elements to display, only display the provided elements
+            if (object.data.length < count) {
+                count = object.data.length;
+            }
+            if (type == "grid") {
+                for (let index = 1; index < count + 1; index++) {
+                    document.getElementById(preID + "-title-" + index).innerHTML = object.tracks.data[index-1].title;
+                    document.getElementById(preID + "-artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
+                    document.getElementById(preID + "-cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+                }
+            }
+            else if (type == "search") {
+                for (let index = 1; index < count + 1; index++) {
+                    document.getElementById(preID + "-title-" + index).innerHTML = object.data[index-1].title;
+                    document.getElementById(preID + "-artist-" + index).innerHTML = object.data[index-1].artist.name;
+                    document.getElementById(preID + "-cover-" + index).src = object.data[index-1].album.cover_small;
+                }
+            } else {
+    
+            }
+        }   
     }) 
     .catch(function (error) {
         console.error(error);
     });
+}
+
+function displayNoSearchResultsFound() {
+    var pElement = document.createElement("p");
+    pElement.classList.add("no-search-result-element");
+    pElement.innerHTML = "Keine Suchergebnisse gefunden";
+    document.getElementById("search-result-container").appendChild(pElement);
+    noSearchResultElementsCreated = true;
+}
+
+function removeNoSearchResultElement() {
+    document.querySelector(".no-search-result-element").remove();
+    noSearchResultElementsCreated = false;
 }
 
 function getGridData(api_url, count, preID) {
@@ -54,20 +76,12 @@ function getDeezerSearchURL(query) {
     return DEEZER_SEARCH_URL + query;
 }
 
-function removeSearchResults(count, preID) {
-    for (let index = 1; index < count + 1; index++) {
-        document.getElementById(preID + "-title-" + index).innerHTML = "";
-        document.getElementById(preID + "-artist-" + index).innerHTML = "";
-        document.getElementById(preID + "-cover-" + index).src = "";
-    }
-}
-
 function displaySearchResults(element, count, preID) {
     var searchFieldValue = getDeezerSearchURL(element.value);
     if (searchFieldValue != DEEZER_SEARCH_URL) {
         getSearchData(searchFieldValue, count, preID);
     }  else {
-        removeSearchResults(count, preID);
+        removeSearchResultElements(count, preID);
     } 
 }
 
@@ -82,7 +96,7 @@ creates following HTML for one element:
 </a>
 */
 function createSearchResultElements(count, preID) {        
-    for (let index = 0; index < count + 1; index++) {
+    for (let index = 1; index < count + 1; index++) {
         var anchorElement = document.createElement("a");
         anchorElement.classList.add("search-result-element");
         anchorElement.id = preID + "-search-result-element-" + index;
@@ -108,40 +122,35 @@ function createSearchResultElements(count, preID) {
         pElement_artist.id = preID + "-artist-" + index;
         divElement_text_wrapper.appendChild(pElement_artist);
     }
+    searchResultElementsCreated = true;
 }
 
 function removeSearchResultElements(count, preID) {
-    for (let index = 0; index < count + 1; index++) {
+    for (let index = 1; index < count + 1; index++) {
         document.getElementById(preID + "-search-result-element-" + index).remove();
+        searchResultElementsCreated = false;
     }
 }
 
-//call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res-')"
+//call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
 function initSearchResultElements(element, count, preID) {
-    if (searchResultElementsCreated) {
-        removeSearchResultElements(count, preID);
+    //Delaying the function execute
+    if (this.timer) {
+        window.clearTimeout(this.timer);
     }
-    createSearchResultElements(count, preID);
-    searchResultElementsCreated = true;
-    displaySearchResults(element, count, preID);
+    this.timer = window.setTimeout(function() {    
+        //Execute the function code here...
+        if (searchResultElementsCreated) {
+            removeSearchResultElements(count, preID);
+        }
+        if (noSearchResultElementsCreated) {
+            removeNoSearchResultElement();
+        }
+        createSearchResultElements(count, preID);
+        displaySearchResults(element, count, preID);
+    }, 500); 
 }
 
-/*createSearchResultElements(2, "res");
-document.getElementById("res-cover-1").alt = "Image 1";
-document.getElementById("res-title-1").innerHTML = "Title 1";
-document.getElementById("res-artist-1").innerHTML = "Artist 1";
-
-document.getElementById("res-cover-2").alt = "Image 2";
-document.getElementById("res-title-2").innerHTML = "Title 2";
-document.getElementById("res-artist-2").innerHTML = "Artist 2";
-
-document.getElementById("res-cover-1").remove();
-document.getElementById("res-title-1").remove();
-document.getElementById("res-artist-1").remove();
-
-document.getElementById("res-cover-2").remove();
-document.getElementById("res-title-2").remove();
-document.getElementById("res-artist-2").remove();*/
 
 
 
