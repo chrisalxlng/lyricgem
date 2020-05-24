@@ -3,6 +3,11 @@ const DEEZER_TRENDING_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1
 const DEEZER_CHARTS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/3155776842";
 const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 
+//
+//-------------------------------------------------------------------------------------------
+//
+//GET SEARCH DATA
+
 //Variables:
 var searchResultElementsCreated = false;
 var noSearchResultElementsCreated = false;
@@ -62,10 +67,6 @@ function displayNoSearchResultsFound() {
 function removeNoSearchResultElement() {
     document.querySelector(".no-search-result-element").remove();
     noSearchResultElementsCreated = false;
-}
-
-function getGridData(api_url, count, preID) {
-    getAPIData(api_url, count, "grid", preID);
 }
 
 function getSearchData(api_url, count, preID) {
@@ -149,6 +150,14 @@ function initSearchResultElements(element, count, preID) {
         createSearchResultElements(count, preID);
         displaySearchResults(element, count, preID);
     }, 500); 
+}
+
+//
+//-------------------------------------------------------------------------------------------
+//
+//GET GRID DATA
+function getGridData(api_url, count, preID) {
+    getAPIData(api_url, count, "grid", preID);
 }
 
 
