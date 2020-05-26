@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary-color: #FFB997;
+    --secondary-color: #843B62;
+    --tertiary-color: #F67E7D;
+
+    --accent-color-1: #0B032D;
+    --accent-color-2: #FFFFFF;
+
+    --main-font: Montserrat, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: var(--primary-color);
+    font-family: var(--main-font);
+}
+
+.page-wrapper {
+    padding-top: 50px;
+}
+
+.padding {
+    padding: 0px 20px;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    color: var(--accent-color-1);
+}
+
+h1 {
+    font-size: 7vw;
+}
+
+h2 {
+    font-size: 5vw;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 4vw;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: var(--secondary-color);
+}
+
+.logo, #js-search {
+    padding: 15px 20px;
+}
+
+.searchbar-wrapper > * {
+    display: none;
+}
+
+.logo {
+    color: var(--primary-color);
+    font-weight: 700;
+}

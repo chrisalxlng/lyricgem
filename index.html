@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -21,7 +23,7 @@
         <div>
             <h1>Suche Songtexte aus Millionen von Songs</h1>
             <div class="searchbar-wrapper">
-                <input id="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
+                <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'main')">
                 <div id="search-result-container"></div>
             </div>
         </div>
@@ -34,46 +36,46 @@
                 <a href="#"><button>Mehr anzeigen</button></a>
             </div>
             <div class="song-grid">
-                <div class="song-grid-element">
+                <a class="song-grid-element" id="charts-search-result-element-1">
                     <img id="charts-cover-1">
                     <p id="charts-title-1"></p>
                     <p id="charts-artist-1"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-2">
                     <img id="charts-cover-2">
                     <p id="charts-title-2"></p>
                     <p id="charts-artist-2"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-3">
                     <img id="charts-cover-3">
                     <p id="charts-title-3"></p>
                     <p id="charts-artist-3"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-4">
                     <img id="charts-cover-4">
                     <p id="charts-title-4"></p>
                     <p id="charts-artist-4"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-5">
                     <img id="charts-cover-5">
                     <p id="charts-title-5"></p>
                     <p id="charts-artist-5"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-6">
                     <img id="charts-cover-6">
                     <p id="charts-title-6"></p>
                     <p id="charts-artist-6"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-7">
                     <img id="charts-cover-7">
                     <p id="charts-title-7"></p>
                     <p id="charts-artist-7"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="charts-search-result-element-8">
                     <img id="charts-cover-8">
                     <p id="charts-title-8"></p>
                     <p id="charts-artist-8"></p>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -85,46 +87,46 @@
                 <a href="#"><button>Mehr anzeigen</button></a>
             </div>
             <div class="song-grid">
-                <div class="song-grid-element">
+                <a class="song-grid-element" id="trending-search-result-element-1">
                     <img id="trending-cover-1">
                     <p id="trending-title-1"></p>
                     <p id="trending-artist-1"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-2">
                     <img id="trending-cover-2">
                     <p id="trending-title-2"></p>
                     <p id="trending-artist-2"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-3">
                     <img id="trending-cover-3">
                     <p id="trending-title-3"></p>
                     <p id="trending-artist-3"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-4">
                     <img id="trending-cover-4">
                     <p id="trending-title-4"></p>
                     <p id="trending-artist-4"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-5">
                     <img id="trending-cover-5">
                     <p id="trending-title-5"></p>
                     <p id="trending-artist-5"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-6">
                     <img id="trending-cover-6">
                     <p id="trending-title-6"></p>
                     <p id="trending-artist-6"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-7">
                     <img id="trending-cover-7">
                     <p id="trending-title-7"></p>
                     <p id="trending-artist-7"></p>
-                </div>
-                <div class="song-grid-element">
+                </a>
+                <a class="song-grid-element" id="trending-search-result-element-8">
                     <img id="trending-cover-8">
                     <p id="trending-title-8"></p>
                     <p id="trending-artist-8"></p>
-                </div>
+                </a>
             </div>
         </div>
     </section>

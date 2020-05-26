@@ -72,7 +72,7 @@ function getAPIData (api_url, count, type, preID) {
                         song.play();
                     }
                 });
-                getLyrics(getLyricsURL(object.title_short, object.artist.name));
+                //getLyrics(getLyricsURL(object.title_short, object.artist.name));
             } else {
     
             }

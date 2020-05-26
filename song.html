@@ -4,51 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <a class="logo" href="index.html">lyricgem</a>
-        <div class="searchbar-wrapper">
-            <input id="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
-            <div id="search-result-container"></div>
-        </div>
-        <ul>
-            <li><a href="#"></a>Home</li>
-            <li><a href="#"></a>Charts</li>
-            <li><a href="#"></a>Trending</li>
-        </ul>
-    </nav>
 
-    <section class="song-info-section">
-        <div class="song-info">
-            <div class="title-info">
-                <h1 id="title">Title</h1>
-                <h2 id="artist">Artist</h2>
-                <h3 id="album">Album</h3>
-                <h3 id="release-year">Release</h3>
+        <nav>
+            <a class="logo" href="index.html">lyricgem</a>
+            <div class="searchbar-wrapper">
+                <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
+                <div id="search-result-container"></div>
             </div>
-            <div>
-                <label for="deezer-btn">Anhören auf</label>
-                <a id="deezer-link" href="">
-                    <button name="deezer-btn">
-                        <img src="" alt="">
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="song-cover">
-            <img id="cover">
-            <button id="song-preview">Play</button>
-        </div>
-    </section>
+            <i id="js-search" class="fas fa-search"></i>
+        </nav>
 
-    <section class="lyrics-section">
-        <div>
-            <h2>Lyrics</h2>
-            <p id="song-lyrics">Lyrics</p>
-        </div>
-    </section>
+        <article class="page-wrapper">
+    
+        <section class="song-info-section padding">
+            <div class="song-info">
+                <div class="title-info">
+                    <h1 id="title">Title</h1>
+                    <h2 id="artist">Artist</h2>
+                    <h3 id="album">Album</h3>
+                    <h3 id="release-year">Release</h3>
+                </div>
+                <div>
+                    <label for="deezer-btn">Anhören auf</label>
+                    <a id="deezer-link" href="">
+                        <button name="deezer-btn">
+                            <img src="" alt="">
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="song-cover">
+                <img id="cover">
+                <div id="song-preview"><i class="fas fa-play"></i></div>
+            </div>
+        </section>
+    
+        <section class="lyrics-section">
+            <div class="padding">
+                <h2>Lyrics</h2>
+                <p id="song-lyrics">Lyrics</p>
+            </div>
+        </section>
+
+    </article>
     
     <script src="js/index.js"></script>
 </body>
