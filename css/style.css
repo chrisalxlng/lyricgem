@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --primary-color: #FFB997;
-    --secondary-color: #843B62;
-    --tertiary-color: #F67E7D;
-
-    --accent-color-1: #0B032D;
-    --accent-color-2: #FFFFFF;
+    --primary-color: linear-gradient(to right, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100));
+    --secondary-color: #FFFFFF;
+    --active-color: rgba(255, 255, 255, 0.8);
 
     --main-font: Montserrat, sans-serif;
 }
@@ -15,9 +12,8 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    overflow: hidden;
     box-sizing: border-box;
-    background-color: var(--primary-color);
+    background: var(--primary-color);
     font-family: var(--main-font);
 }
 
@@ -25,13 +21,31 @@ body {
     padding-top: 50px;
 }
 
-.padding {
+.page-padding {
     padding: 0px 20px;
+}
+
+.section-padding {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.element-margin {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.shadow {
+    box-shadow: 1px 1px 6px black;
+}
+
+.hide.fas {
+    display: none;
 }
 
 h1, h2, h3 {
     margin: 0;
-    color: var(--accent-color-1);
+    color: var(--secondary-color);
 }
 
 h1 {
@@ -59,6 +73,7 @@ nav {
     justify-content: space-between;
     align-items: flex-start;
     background-color: var(--secondary-color);
+    z-index: 1;
 }
 
 .logo, #js-search {

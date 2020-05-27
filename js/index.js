@@ -54,25 +54,37 @@ function getAPIData (api_url, count, type, preID) {
             else if (type == "song") {
                 document.getElementById("title").innerHTML = object.title_short;
                 document.getElementById("artist").innerHTML = object.artist.name;
-                document.getElementById("album").innerHTML = object.album.title;
-                document.getElementById("release-year").innerHTML = object.album.release_date;
+                document.getElementById("album").innerHTML = '"' + object.album.title + '"';
+                document.getElementById("release-year").innerHTML = "(" + object.album.release_date.substring(0, 4) + ")";
                 document.getElementById("deezer-link").href = object.link;
                 document.getElementById("cover").src = object.album.cover_medium;
+                document.querySelector(".song-info-section").style.backgroundImage = "url('" + object.artist.picture_xl + "')";
                 var playPauseButton = document.getElementById("song-preview");
                 var song = new Audio(object.preview);
                 playPauseButton.addEventListener("click", function() {
                     if (song.currentTime == 0) {
                         song.play();
-                    } 
-                    else if (song.currentTime < 29 && song.currentTime != 0) {
+                        document.querySelector(".fas.fa-stop").classList.remove("hide");
+                        document.querySelector(".fas.fa-play").style.animationName = "button-flip-out";
+                        document.querySelector(".fas.fa-stop").style.animationName = "button-flip-in";
+                        document.querySelector(".fas.fa-play").classList.add("hide");
+                    } else {
                         song.pause();
                         song.currentTime = 0;
-                    } else {
-                        song.currentTime = 0;
-                        song.play();
+                        document.querySelector(".fas.fa-play").classList.remove("hide");
+                        document.querySelector(".fas.fa-stop").style.animationName = "button-flip-out";
+                        document.querySelector(".fas.fa-play").style.animationName = "button-flip-in";
+                        document.querySelector(".fas.fa-stop").classList.add("hide");
                     }
                 });
-                //getLyrics(getLyricsURL(object.title_short, object.artist.name));
+                song.onended = function () {
+                    song.currentTime = 0;
+                    document.querySelector(".fas.fa-play").classList.remove("hide");
+                    document.querySelector(".fas.fa-stop").style.animationName = "button-flip-out";
+                    document.querySelector(".fas.fa-play").style.animationName = "button-flip-in";
+                    document.querySelector(".fas.fa-stop").classList.add("hide");
+                };
+                getLyrics(getLyricsURL(object.title_short, object.artist.name));
             } else {
     
             }
@@ -230,11 +242,11 @@ function getLyrics(url) {
     })
     .then(function (object) {
         if (object.status.code == 200) {
-            var songLyrics = object.content[0].lyrics;
             document.getElementById("song-lyrics").innerHTML = "<pre>" + object.content[0].lyrics + "</pre>";
         } else {
             document.getElementById("song-lyrics").innerHTML = "Keinen Songtext gefunden.";
         }
+        document.querySelector(".loading-wrapper").style.display = "none";
     })
     .catch(err => {
         console.log(err);

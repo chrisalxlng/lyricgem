@@ -5,49 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/song.css">
     <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-        <nav>
-            <a class="logo" href="index.html">lyricgem</a>
-            <div class="searchbar-wrapper">
-                <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
-                <div id="search-result-container"></div>
-            </div>
-            <i id="js-search" class="fas fa-search"></i>
-        </nav>
+    <nav>
+        <a class="logo" href="index.html">lyricgem</a>
+        <div class="searchbar-wrapper">
+            <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
+            <div id="search-result-container"></div>
+        </div>
+        <i id="js-search" class="fas fa-search"></i>
+    </nav>
 
-        <article class="page-wrapper">
+    <article class="page-wrapper">
     
-        <section class="song-info-section padding">
-            <div class="song-info">
-                <div class="title-info">
-                    <h1 id="title">Title</h1>
-                    <h2 id="artist">Artist</h2>
-                    <h3 id="album">Album</h3>
-                    <h3 id="release-year">Release</h3>
+        <section class="song-info-section">
+            <div class="song-info-wrapper page-padding section-padding">
+                <div class="song-info">
+                    <div class="title-info element-margin">
+                        <h1 id="title" class="element-margin">Title</h1>
+                        <h2 id="artist" class="element-margin">Artist</h2>
+                        <div class="album-release-wrapper element-margin">
+                            <h3 id="album">Album</h3>
+                            <h3 id="release-year">Release</h3>
+                        </div>
+                    </div>  
+                    <a id="deezer-link" class="element-margin shadow" target="_blank">
+                        <img src="img/logo-deezer.svg" alt="">
+                    </a>       
                 </div>
-                <div>
-                    <label for="deezer-btn">Anhören auf</label>
-                    <a id="deezer-link" href="">
-                        <button name="deezer-btn">
-                            <img src="" alt="">
-                        </button>
-                    </a>
+                <div class="song-cover element-margin shadow">
+                    <img id="cover">
+                    <div id="song-preview" class="shadow">
+                        <i class="fas fa-play"></i>
+                        <i class="hide fas fa-stop"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="song-cover">
-                <img id="cover">
-                <div id="song-preview"><i class="fas fa-play"></i></div>
-            </div>
+            </div>          
         </section>
     
-        <section class="lyrics-section">
-            <div class="padding">
-                <h2>Lyrics</h2>
-                <p id="song-lyrics">Lyrics</p>
+        <section class="lyrics-section section-padding">
+            <div class="page-padding">
+                <p id="song-lyrics">
+                    <div class="loading-wrapper">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                    
+                </p>
             </div>
         </section>
 

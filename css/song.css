@@ -1,0 +1,154 @@
+.song-info-section {
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+}
+
+.song-info-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.album-release-wrapper {
+    display: flex;
+}
+
+.album-release-wrapper #album {
+    padding-right: 10px;
+}
+
+.song-cover {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.song-cover, #deezer-link {
+    width: 60vw;
+}
+
+#song-preview {
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    width: 20%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0px 0px 10px 10px;
+}
+
+#cover {
+    width: 100%;
+    height: 100%;
+}
+
+#title {
+    margin-top: 20px;
+}
+
+#song-preview i {
+    font-size: 4vw;
+    animation-duration: 1s;
+    cursor: pointer;
+}
+
+#song-preview {
+    cursor: pointer;
+    transition: .3s;
+}
+
+#song-preview:hover {
+    transition: .3s;
+    background-color: var(--active-color);
+}
+
+#deezer-link {
+    background-color: var(--secondary-color);
+    height: 40px;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    transition: .3s;
+}
+#deezer-link:hover {
+    transition: .3s;
+    background-color: var(--active-color);
+}
+
+#deezer-link img {
+    max-width: 50%;
+    max-height: 40%;
+}
+
+#song-lyrics {
+    padding: 0;
+    margin: 0;
+}
+
+.loading-wrapper {
+    text-align: center;
+}
+
+.loading-wrapper i {
+    color: var(--secondary-color);
+    font-size: 25px;
+}
+
+pre {
+    font-family: var(--main-font);
+    color: var(--secondary-color);
+    overflow: auto;
+    white-space: pre-wrap;
+    padding: 0;
+    margin: 0;
+    font-size: 4vw;
+}
+
+@keyframes button-flip-out {
+    from {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes button-flip-in {
+    from {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+}
