@@ -13,6 +13,8 @@ const CANARADO_LYRICS_URL = "https://canarado-lyrics.p.rapidapi.com/lyrics/";
 //Variables:
 var searchResultElementsCreated = false;
 var noSearchResultElementsCreated = false;
+var publicCount = 0;
+var publicPreID = "";
 
 function getAPIData (api_url, count, type, preID) {
     fetch(api_url, {
@@ -98,7 +100,7 @@ function getAPIData (api_url, count, type, preID) {
 function displayNoSearchResultsFound() {
     var pElement = document.createElement("p");
     pElement.classList.add("no-search-result-element");
-    pElement.innerHTML = "Keine Suchergebnisse gefunden";
+    pElement.innerHTML = "Keine Suchergebnisse gefunden.";
     document.getElementById("search-result-container").appendChild(pElement);
     noSearchResultElementsCreated = true;
 }
@@ -188,6 +190,8 @@ function initSearchResultElements(element, count, preID) {
         }
         createSearchResultElements(count, preID);
         displaySearchResults(element, count, preID);
+        publicCount = count;
+        publicPreID = preID;
     }, 500); 
 }
 
@@ -253,11 +257,49 @@ function getLyrics(url) {
     });
 }
 
+//
+//-------------------------------------------------------------------------------------------
+//
+//OPEN SEARCH VIEW MOBILE
 
+document.getElementById("js-search").addEventListener("click", function() {
+    document.querySelector(".logo").style.display = "none";
+    document.querySelector(".logo").style.animationName = "end-opacity";
+    document.querySelector("#js-search").style.display = "none";
+    document.querySelector("#js-search").style.animationName = "end-opacity";
+    document.querySelector("#js-close").style.display = "block";
+    document.querySelector("#js-close").style.animationName = "start-opacity";
+    document.querySelector(".searchbar").classList.remove("hide");
+    document.querySelector(".searchbar").style.animationName = "start-opacity";
+    document.querySelector(".search-result-container").classList.remove("hide");
+    document.querySelector(".searchbar").select();
+    document.querySelector("#body").classList.add("stop-scrolling");
+    document.querySelector(".search-result-container").style.animationName = "open-search-view";
+});
 
+document.getElementById("js-close").addEventListener("click", function() {
+    document.querySelector(".search-result-container").style.animationName = "close-search-view";
+    document.querySelector(".logo").style.animationName = "start-opacity";
+    document.querySelector("#js-close").style.animationName = "end-opacity";
+    document.querySelector("#js-search").style.animationName = "start-opacity";
+    document.querySelector(".searchbar").value = "";
+    document.querySelector(".searchbar").style.animationName = "end-opacity";
+    document.querySelector("#body").classList.remove("stop-scrolling");
+    if (searchResultElementsCreated) {
+        removeSearchResultElements(publicCount, publicPreID);
+    }
+    if (noSearchResultElementsCreated) {
+        removeNoSearchResultElement();
+    }
 
-
-
-
-
-
+    if (this.timer) {
+        window.clearTimeout(this.timer);
+    }
+    this.timer = window.setTimeout(function() {    
+        document.querySelector(".searchbar").classList.add("hide");
+        document.querySelector(".search-result-container").classList.add("hide");
+        document.querySelector(".logo").style.display = "block";
+        document.querySelector("#js-close").style.display = "none";
+        document.querySelector("#js-search").style.display = "block";
+    }, 100);  
+});

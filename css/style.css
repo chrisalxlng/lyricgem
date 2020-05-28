@@ -43,6 +43,11 @@ body {
     display: none;
 }
 
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+  }
+
 h1, h2, h3 {
     margin: 0;
     color: var(--secondary-color);
@@ -68,6 +73,7 @@ a {
 
 nav {
     width: 100vw;
+    height: 50px;
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -76,15 +82,153 @@ nav {
     z-index: 1;
 }
 
-.logo, #js-search {
-    padding: 15px 20px;
+nav i {
+    cursor: pointer;
+    align-self: center;
+    z-index: 3;
 }
 
-.searchbar-wrapper > * {
+.logo, #js-search, #js-close, .searchbar {
+    margin: 15px 20px;
+    animation-duration: .5s;
+}
+
+#js-close {
     display: none;
+    z-index: 100;
+}
+
+.hide {
+    display: none;
+}
+
+.search-result-container {
+    width: 100vw;
+    background-color: var(--secondary-color);
+    z-index: 1;
+    padding-bottom: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    animation-duration: .1s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.searchbar {
+    border-radius: 50px;
+    border: 1.5px solid rgb(221, 221, 221);
+    padding: 10px 15px;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.searchbar:focus {
+    outline: none;
+    border: 1.5px solid rgb(32, 58, 67);
+    box-shadow: 1px 1px 2px rgba(44, 83, 100, 0.521);
+}
+
+.searchbar-logo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.search-result-element {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.search-result-element:hover {
+    background-color: rgba(216, 215, 215, 0.562);
+}
+
+.search-result-cover {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.search-result-text-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 10px;
+    color: rgb(32, 58, 67);
+}
+
+.search-result-element p {
+    margin: 0;
+    font-size: 4vw;
+}
+
+.search-result-title {
+    font-weight: 600;
+}
+
+.search-result-artist {
+    color: rgb(134, 134, 134);
+    font-weight: 500;
+}
+
+.no-search-result-element {
+    margin: 0;
+    padding: 10px 35px;
+    color: rgb(134, 134, 134);
+    font-size: 3.5vw;
 }
 
 .logo {
     color: var(--primary-color);
     font-weight: 700;
+}
+
+.footer {
+    color: var(--secondary-color);
+    font-size: 3vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@keyframes open-search-view {
+    from {
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+    to {
+        transform-origin: top;
+        transform: scaleY(1);
+    }
+}
+
+@keyframes close-search-view {
+    from {
+        transform-origin: top;
+        transform: scaleY(1);
+    }
+    to {
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+}
+
+@keyframes start-opacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes end-opacity {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

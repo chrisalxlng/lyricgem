@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="css/song.css">
     <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="body">
 
     <nav>
         <a class="logo" href="index.html">lyricgem</a>
         <div class="searchbar-wrapper">
-            <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'res')">
-            <div id="search-result-container"></div>
+            <div class="searchbar-logo-wrapper">
+                <input class="searchbar hide" type="text" maxlength="50" placeholder="Nach Song suchen" onkeyup="initSearchResultElements(this, 8, 'res')">
+                <i id="js-close" class="fas fa-times"></i>
+            </div>
+            <div class="search-result-container hide" id="search-result-container"></div>
         </div>
         <i id="js-search" class="fas fa-search"></i>
     </nav>
@@ -58,6 +61,10 @@
         </section>
 
     </article>
+
+    <footer class="footer section padding page-padding">
+        <p>&copy 2020 Christopher Lang</p>
+    </footer>
     
     <script src="js/index.js"></script>
 </body>
