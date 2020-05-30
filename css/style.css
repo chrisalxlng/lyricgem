@@ -79,13 +79,12 @@ nav {
     justify-content: space-between;
     align-items: flex-start;
     background-color: var(--secondary-color);
-    z-index: 1;
+    z-index: 100;
 }
 
 nav i {
     cursor: pointer;
     align-self: center;
-    z-index: 3;
 }
 
 .logo, #js-search, #js-close, .searchbar {
@@ -104,6 +103,7 @@ nav i {
 
 .search-result-container {
     width: 100vw;
+    max-height: 80vh;
     background-color: var(--secondary-color);
     z-index: 1;
     padding-bottom: 10px;
@@ -112,11 +112,14 @@ nav i {
     animation-duration: .1s;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .searchbar {
     border-radius: 50px;
-    border: 1.5px solid rgb(221, 221, 221);
+    border: 1.25px solid rgb(197, 195, 195);
     padding: 10px 15px;
     width: 80%;
     margin-top: 10px;
@@ -126,7 +129,6 @@ nav i {
 .searchbar:focus {
     outline: none;
     border: 1.5px solid rgb(32, 58, 67);
-    box-shadow: 1px 1px 2px rgba(44, 83, 100, 0.521);
 }
 
 .searchbar-logo-wrapper {

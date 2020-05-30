@@ -118,12 +118,12 @@ function getDeezerSearchURL(query) {
     return DEEZER_SEARCH_URL + query;
 }
 
-function displaySearchResults(element, count, preID) {
+function displaySearchResults(element, preID) {
     var searchFieldValue = getDeezerSearchURL(element.value);
     if (searchFieldValue != DEEZER_SEARCH_URL) {
-        getSearchData(searchFieldValue, count, preID);
+        getSearchData(searchFieldValue, publicCount, preID);
     }  else {
-        removeSearchResultElements(count, preID);
+        removeSearchResultElements(publicCount, preID);
     } 
 }
 
@@ -137,8 +137,8 @@ creates following HTML for one element:
     </div>
 </a>
 */
-function createSearchResultElements(count, preID) {        
-    for (let index = 1; index < count + 1; index++) {
+function createSearchResultElements(preID) {        
+    for (let index = 1; index < publicCount + 1; index++) {
         var anchorElement = document.createElement("a");
         anchorElement.classList.add("search-result-element");
         anchorElement.id = preID + "-search-result-element-" + index;
@@ -174,8 +174,47 @@ function removeSearchResultElements(count, preID) {
     }
 }
 
+function checkForAvailableResultCount(maxCount, element, preID) {
+    var searchFieldValue = getDeezerSearchURL(element.value);
+
+    if (element.value != "") {
+        fetch(searchFieldValue, {
+            "method": "GET",
+            "headers": 
+            {
+                "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                "x-rapidapi-key": "486af7d15cmsh8635265f7c2bdc9p1b2081jsnf5c14c14946b"
+            }
+        })
+        .then(function (response) {
+            console.log(response);
+            return response.json();
+        })
+        .then(function (object) {
+            var availableCount = object.data.length;
+            if (availableCount < maxCount) {
+                callbackAvailableCount(availableCount, element, preID);
+            } else {
+                callbackAvailableCount(maxCount, element, preID);
+            } 
+        })
+        .catch(function (error) {
+            console.error(error);
+        }); 
+    } else {
+        callbackAvailableCount(maxCount, element, preID);
+    }
+}
+
+function callbackAvailableCount(newCount, element, preID) {
+    publicCount = newCount;
+    createSearchResultElements(preID);
+    displaySearchResults(element, preID);
+    publicPreID = preID;
+}
+
 //call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
-function initSearchResultElements(element, count, preID) {
+function initSearchResultElements(element, maxCount, preID) {
     //Delaying the function execute
     if (this.timer) {
         window.clearTimeout(this.timer);
@@ -183,15 +222,12 @@ function initSearchResultElements(element, count, preID) {
     this.timer = window.setTimeout(function() {    
         //Execute the function code here...
         if (searchResultElementsCreated) {
-            removeSearchResultElements(count, preID);
+            removeSearchResultElements(publicCount, preID);
         }
         if (noSearchResultElementsCreated) {
             removeNoSearchResultElement();
         }
-        createSearchResultElements(count, preID);
-        displaySearchResults(element, count, preID);
-        publicCount = count;
-        publicPreID = preID;
+        checkForAvailableResultCount(maxCount, element, preID);            
     }, 500); 
 }
 
@@ -262,7 +298,12 @@ function getLyrics(url) {
 //
 //OPEN SEARCH VIEW MOBILE
 
-document.getElementById("js-search").addEventListener("click", function() {
+function scrollToCloseSearchView() {
+    closeSearchView();
+    document.getElementById("exitSearchViewElement").remove();
+}
+
+function openSearchView() {
     document.querySelector(".logo").style.display = "none";
     document.querySelector(".logo").style.animationName = "end-opacity";
     document.querySelector("#js-search").style.display = "none";
@@ -273,18 +314,28 @@ document.getElementById("js-search").addEventListener("click", function() {
     document.querySelector(".searchbar").style.animationName = "start-opacity";
     document.querySelector(".search-result-container").classList.remove("hide");
     document.querySelector(".searchbar").select();
-    document.querySelector("#body").classList.add("stop-scrolling");
+    //document.querySelector("#body").classList.add("stop-scrolling");
     document.querySelector(".search-result-container").style.animationName = "open-search-view";
-});
 
-document.getElementById("js-close").addEventListener("click", function() {
+    var exitSearchViewElement = document.createElement("div");
+    exitSearchViewElement.id = "exitSearchViewElement";
+    exitSearchViewElement.style.zIndex = "10";
+    exitSearchViewElement.style.width = "100vw";
+    exitSearchViewElement.style.height = "500vh";
+    exitSearchViewElement.style.position = "absolute";
+    exitSearchViewElement.style.top = "0";
+    document.getElementById("body").appendChild(exitSearchViewElement);
+    exitSearchViewElement.addEventListener("click", scrollToCloseSearchView);
+}
+
+function closeSearchView() {
     document.querySelector(".search-result-container").style.animationName = "close-search-view";
     document.querySelector(".logo").style.animationName = "start-opacity";
     document.querySelector("#js-close").style.animationName = "end-opacity";
     document.querySelector("#js-search").style.animationName = "start-opacity";
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
-    document.querySelector("#body").classList.remove("stop-scrolling");
+    //document.querySelector("#body").classList.remove("stop-scrolling");
     if (searchResultElementsCreated) {
         removeSearchResultElements(publicCount, publicPreID);
     }
@@ -301,5 +352,8 @@ document.getElementById("js-close").addEventListener("click", function() {
         document.querySelector(".logo").style.display = "block";
         document.querySelector("#js-close").style.display = "none";
         document.querySelector("#js-search").style.display = "block";
-    }, 100);  
-});
+    }, 100);
+}
+
+document.getElementById("js-search").addEventListener("click", openSearchView);
+document.getElementById("js-close").addEventListener("click", closeSearchView);
