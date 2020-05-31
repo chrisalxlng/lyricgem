@@ -50,8 +50,10 @@ function getAPIData (api_url, count, type, preID) {
             }
             else if (type == "search") {
                 for (let index = 1; index < count + 1; index++) {
-                    document.getElementById(preID + "-title-" + index).innerHTML = object.data[index-1].title;
-                    document.getElementById(preID + "-artist-" + index).innerHTML = object.data[index-1].artist.name;
+                    var title = checkForStringLength(object.data[index-1].title);
+                    var artist = checkForStringLength(object.data[index-1].artist.name);
+                    document.getElementById(preID + "-title-" + index).innerHTML = title;
+                    document.getElementById(preID + "-artist-" + index).innerHTML = artist;
                     document.getElementById(preID + "-cover-" + index).src = object.data[index-1].album.cover_small;
                     document.getElementById(preID + "-search-result-element-" + index).href = "song.html?id=" + object.data[index-1].id;
                 }
@@ -98,6 +100,18 @@ function getAPIData (api_url, count, type, preID) {
     .catch(function (error) {
         console.error(error);
     });
+}
+
+function checkForStringLength(string) {
+    var splitString = string.split(" ");
+    string = "";
+    for (let index = 0; index < splitString.length; index++) {
+        if (splitString[index].length > 20) splitString[index] = splitString[index].substring(0,25) + "...";
+    }
+    for (let index = 0; index < splitString.length; index++) {
+        string += splitString[index] + " ";  
+    }
+    return string;
 }
 
 function displayNoSearchResultsFound() {
