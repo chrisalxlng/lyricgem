@@ -268,6 +268,13 @@ function checkForAutocomplete(event, preID) {
     
 }
 
+//prevent cursor from jumping when using arrow up and down keys
+document.onkeydown = function(event) {
+    if (event.keyCode == 38 || event.keyCode == 40) {
+        event.preventDefault();
+    }
+};
+
 //call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
 function initSearchResultElements(element, maxCount, preID, event) {
     if (element.value != previousSearchFieldValue) {
