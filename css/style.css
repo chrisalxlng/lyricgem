@@ -145,6 +145,10 @@ nav i {
 }
 
 .search-result-element:hover {
+    background-color: rgba(216, 215, 215, 0.863);
+}
+
+.search-result-active {
     background-color: rgba(216, 215, 215, 0.562);
 }
 

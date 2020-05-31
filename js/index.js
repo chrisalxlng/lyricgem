@@ -15,6 +15,9 @@ var searchResultElementsCreated = false;
 var noSearchResultElementsCreated = false;
 var publicCount = 0;
 var publicPreID = "";
+var previousSearchFieldValue = "";
+var focus = 0;
+var previousFocus = 0;
 
 function getAPIData (api_url, count, type, preID) {
     fetch(api_url, {
@@ -187,7 +190,6 @@ function checkForAvailableResultCount(maxCount, element, preID) {
             }
         })
         .then(function (response) {
-            console.log(response);
             return response.json();
         })
         .then(function (object) {
@@ -213,22 +215,67 @@ function callbackAvailableCount(newCount, element, preID) {
     publicPreID = preID;
 }
 
-//call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
-function initSearchResultElements(element, maxCount, preID) {
-    //Delaying the function execute
-    if (this.timer) {
-        window.clearTimeout(this.timer);
+function checkForAutocomplete(event, preID) {
+    previousFocus = focus;
+    //if key == "Down"
+    if (event.keyCode == 40) {
+        if (focus < publicCount) focus++;
+
+        //if focus is at the bottom and there are no more songs coming up, jump back to the top
+        else if ((focus >= publicCount) && (publicCount > 0)) {
+            document.querySelector("#" + preID + "-search-result-element-" + (focus)).classList.remove("search-result-active");
+            focus = 1;
+            document.querySelector(".search-result-container").scrollTo(0, 0);
+        }     
     }
-    this.timer = window.setTimeout(function() {    
-        //Execute the function code here...
-        if (searchResultElementsCreated) {
-            removeSearchResultElements(publicCount, preID);
+    //if key == "Up"
+    else if (event.keyCode == 38) {
+        focus--;
+    } 
+    //if key == "Enter"
+    else if (event.keyCode == 13 && focus > 0) {
+        document.querySelector("#" + preID + "-search-result-element-" + (focus)).click();
+    } else {}
+
+    //remove previous focus
+    if (focus > 0) {
+        if (focus > 1 && event.keyCode == 40) {
+            document.querySelector("#" + preID + "-search-result-element-" + (focus-1)).classList.remove("search-result-active");
+            document.querySelector(".search-result-container").scrollBy(0, 60);
         }
-        if (noSearchResultElementsCreated) {
-            removeNoSearchResultElement();
+        else if (focus > 0 && event.keyCode == 38) {
+            document.querySelector("#" + preID + "-search-result-element-" + (focus+1)).classList.remove("search-result-active");
+            document.querySelector(".search-result-container").scrollBy(0, -60);
         }
-        checkForAvailableResultCount(maxCount, element, preID);            
-    }, 500); 
+        document.querySelector("#" + preID + "-search-result-element-" + focus).classList.add("search-result-active");
+    } 
+    else if (focus < 0) focus = 0;
+    else if ((previousFocus == 1) && (focus == 0)) document.querySelector("#" + preID + "-search-result-element-1").classList.remove("search-result-active");
+    
+}
+
+//call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
+function initSearchResultElements(element, maxCount, preID, event) {
+    if (element.value != previousSearchFieldValue) {
+        //Delaying the function execute
+        if (this.timer) {
+            window.clearTimeout(this.timer);
+        }
+        this.timer = window.setTimeout(function() {    
+            //Execute the function code here...
+            if (searchResultElementsCreated) {
+                removeSearchResultElements(publicCount, preID);
+            }
+            if (noSearchResultElementsCreated) {
+                removeNoSearchResultElement();
+            }
+            previousSearchFieldValue = element.value;
+            focus = 0;
+            checkForAvailableResultCount(maxCount, element, preID);            
+        }, 500); 
+    } else {
+        checkForAutocomplete(event, preID);
+    }  
 }
 
 //
