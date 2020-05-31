@@ -50,8 +50,8 @@ function getAPIData (api_url, count, type, preID) {
             }
             else if (type == "search") {
                 for (let index = 1; index < count + 1; index++) {
-                    var title = checkForStringLength(object.data[index-1].title);
-                    var artist = checkForStringLength(object.data[index-1].artist.name);
+                    var title = checkForStringLength(object.data[index-1].title, 25, 60);
+                    var artist = checkForStringLength(object.data[index-1].artist.name, 25, 60);
                     document.getElementById(preID + "-title-" + index).innerHTML = title;
                     document.getElementById(preID + "-artist-" + index).innerHTML = artist;
                     document.getElementById(preID + "-cover-" + index).src = object.data[index-1].album.cover_small;
@@ -59,12 +59,15 @@ function getAPIData (api_url, count, type, preID) {
                 }
             } 
             else if (type == "song") {
-                document.getElementById("title").innerHTML = object.title_short;
-                document.getElementById("artist").innerHTML = object.artist.name;
-                document.getElementById("album").innerHTML = '"' + object.album.title + '"';
+                var title = checkForStringLength(object.title_short, 15, 60);
+                var artist = checkForStringLength(object.artist.name, 20, 60);
+                var album = checkForStringLength(object.album.title, 20, 30);
+                document.getElementById("title").innerHTML = title;
+                document.getElementById("artist").innerHTML = artist;
+                document.getElementById("album").innerHTML = '"' + album + '"';
                 document.getElementById("release-year").innerHTML = "(" + object.album.release_date.substring(0, 4) + ")";
                 document.getElementById("deezer-link").href = object.link;
-                document.getElementById("cover").src = object.album.cover_medium;
+                document.getElementById("cover").src = object.album.cover_big;
                 document.querySelector(".song-info-section").style.backgroundImage = "url('" + object.artist.picture_xl + "')";
                 var playPauseButton = document.getElementById("song-preview");
                 var song = new Audio(object.preview);
@@ -102,15 +105,22 @@ function getAPIData (api_url, count, type, preID) {
     });
 }
 
-function checkForStringLength(string) {
+function checkForStringLength(string, singleStringLength, totalStringLength) {
+    //check for length of single strings so they're not longer than 25 characters
     var splitString = string.split(" ");
     string = "";
     for (let index = 0; index < splitString.length; index++) {
-        if (splitString[index].length > 20) splitString[index] = splitString[index].substring(0,25) + "...";
+        if (splitString[index].length > singleStringLength) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
     }
     for (let index = 0; index < splitString.length; index++) {
         string += splitString[index] + " ";  
     }
+
+    //check for length of the whole string so it is not longer than 60 characters in total
+    if (string.length > totalStringLength) string = string.substring(0,totalStringLength) + "...";
+    //if there is a space at the end of the string, remove it
+    if (string[totalStringLength-1] == " ") string = string.substring(0,totalStringLength-1) + "...";
+
     return string;
 }
 
@@ -382,7 +392,7 @@ function openSearchView() {
     document.querySelector(".searchbar").style.animationName = "start-opacity";
     document.querySelector(".search-result-container").classList.remove("hide");
     document.querySelector(".searchbar").select();
-    //document.querySelector("#body").classList.add("stop-scrolling");
+    document.querySelector("#body").classList.add("stop-scrolling");
     document.querySelector(".search-result-container").style.animationName = "open-search-view";
 
     var exitSearchViewElement = document.createElement("div");
@@ -403,7 +413,7 @@ function closeSearchView() {
     document.querySelector("#js-search").style.animationName = "start-opacity";
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
-    //document.querySelector("#body").classList.remove("stop-scrolling");
+    document.querySelector("#body").classList.remove("stop-scrolling");
     if (searchResultElementsCreated) {
         removeSearchResultElements(publicCount, publicPreID);
     }
