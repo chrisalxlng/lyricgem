@@ -37,6 +37,7 @@
 .song-cover {
     position: relative;
     border-radius: 30px;
+    border: 1px solid white;
     overflow: hidden;
     display: flex;
     flex-direction: column;

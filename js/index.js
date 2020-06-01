@@ -69,6 +69,7 @@ function getAPIData (api_url, count, type, preID) {
                 document.getElementById("deezer-link").href = object.link;
                 document.getElementById("cover").src = object.album.cover_big;
                 document.querySelector(".song-info-section").style.backgroundImage = "url('" + object.artist.picture_xl + "')";
+                document.querySelector("title").innerHTML = title + ", " + artist + " - lyricgem";
                 var playPauseButton = document.getElementById("song-preview");
                 var song = new Audio(object.preview);
                 playPauseButton.addEventListener("click", function() {
@@ -95,9 +96,7 @@ function getAPIData (api_url, count, type, preID) {
                     document.querySelector(".fas.fa-stop").classList.add("hide");
                 };
                 getLyrics(getLyricsURL(object.title_short, object.artist.name));
-            } else {
-    
-            }
+            } else {}
         }   
     }) 
     .catch(function (error) {
@@ -113,7 +112,8 @@ function checkForStringLength(string, singleStringLength, totalStringLength) {
         if (splitString[index].length > singleStringLength) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
     }
     for (let index = 0; index < splitString.length; index++) {
-        string += splitString[index] + " ";  
+        if (index != splitString.length-1) string += splitString[index] + " ";
+        else string += splitString[index];
     }
 
     //check for length of the whole string so it is not longer than 60 characters in total
@@ -390,6 +390,8 @@ function openSearchView() {
     document.querySelector("#js-close").style.animationName = "start-opacity";
     document.querySelector(".searchbar").classList.remove("hide");
     document.querySelector(".searchbar").style.animationName = "start-opacity";
+    document.querySelector("#js-searchbar-icon").style.display = "block";
+    document.querySelector("#js-searchbar-icon").style.animationName = "start-opacity";
     document.querySelector(".search-result-container").classList.remove("hide");
     document.querySelector(".searchbar").select();
     document.querySelector("#body").classList.add("stop-scrolling");
@@ -410,6 +412,7 @@ function closeSearchView() {
     document.querySelector(".search-result-container").style.animationName = "close-search-view";
     document.querySelector(".logo").style.animationName = "start-opacity";
     document.querySelector("#js-close").style.animationName = "end-opacity";
+    document.querySelector("#js-searchbar-icon").style.animationName = "end-opacity";
     document.querySelector("#js-search").style.animationName = "start-opacity";
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
@@ -429,6 +432,7 @@ function closeSearchView() {
         document.querySelector(".search-result-container").classList.add("hide");
         document.querySelector(".logo").style.display = "block";
         document.querySelector("#js-close").style.display = "none";
+        document.querySelector("#js-searchbar-icon").style.display = "none";
         document.querySelector("#js-search").style.display = "block";
     }, 100);
 }
