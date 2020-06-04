@@ -3,134 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>lyricgem</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="body">
 
     <nav>
         <a class="logo" href="index.html">lyricgem</a>
-        <ul>
-            <li><a href="#"></a>Home</li>
-            <li><a href="#"></a>Charts</li>
-            <li><a href="#"></a>Trending</li>
-        </ul>
+        <div class="searchbar-wrapper">
+            <div class="searchbar-logo-wrapper">
+                <i id="js-searchbar-icon" class="fas fa-search"></i>
+                <input class="searchbar hide" type="search" maxlength="50" placeholder="Nach Song suchen" onkeyup="initSearchResultElements(this, 20, 'res', event)">
+                <i id="js-close" class="fas fa-arrow-left"></i>
+            </div>
+            <div class="search-result-container hide" id="search-result-container"></div>
+        </div>
+        <i id="js-search" class="fas fa-search"></i>
     </nav>
 
-    <section class="header-section">
-        <div>
-            <h1>Suche Songtexte aus Millionen von Songs</h1>
-            <div class="searchbar-wrapper">
-                <input class="searchbar" type="text" maxlength="50" placeholder="search" onkeyup="initSearchResultElements(this, 2, 'main')">
-                <div id="search-result-container"></div>
+    <article class="page-wrapper">
+        <section class="header-section page-padding section-padding">
+            <div>
+                <h1>Überall bei deinen Favorites mitsingen</h1>
+                <h2>Suche Songtexte aus Millionen von Songs</h2>
+                <div id="searchbar-main-wrapper">
+                    <i id="js-searchbar-icon-main" class="fas fa-search"></i>
+                    <input id="searchbar-main" class="searchbar shadow" type="text" maxlength="50" placeholder="Nach Song suchen" onclick="openSearchView()">
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    
+        <section class="charts-section section-padding">
+            <div>
+                <div class="h2-button-wrapper page-padding">
+                    <h2>Top Charts Weltweit</h2>
+                </div>
+                <div class="song-grid">
+                    <a class="song-grid-element shadow" id="charts-search-result-element-1">
+                        <img id="charts-cover-1">
+                        <p id="charts-title-1" class="grid-title"></p>
+                        <p id="charts-artist-1" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-2">
+                        <img id="charts-cover-2">
+                        <p id="charts-title-2" class="grid-title"></p>
+                        <p id="charts-artist-2" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-3">
+                        <img id="charts-cover-3">
+                        <p id="charts-title-3" class="grid-title"></p>
+                        <p id="charts-artist-3" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-4">
+                        <img id="charts-cover-4">
+                        <p id="charts-title-4" class="grid-title"></p>
+                        <p id="charts-artist-4" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-5">
+                        <img id="charts-cover-5">
+                        <p id="charts-title-5" class="grid-title"></p>
+                        <p id="charts-artist-5" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-6">
+                        <img id="charts-cover-6">
+                        <p id="charts-title-6" class="grid-title"></p>
+                        <p id="charts-artist-6" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-7">
+                        <img id="charts-cover-7">
+                        <p id="charts-title-7" class="grid-title"></p>
+                        <p id="charts-artist-7" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-8">
+                        <img id="charts-cover-8">
+                        <p id="charts-title-8" class="grid-title"></p>
+                        <p id="charts-artist-8" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-9">
+                        <img id="charts-cover-9">
+                        <p id="charts-title-9" class="grid-title"></p>
+                        <p id="charts-artist-9" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element" id="charts-search-result-element-10">
+                        <img id="charts-cover-10">
+                        <p id="charts-title-10" class="grid-title"></p>
+                        <p id="charts-artist-10" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-11">
+                        <img id="charts-cover-11">
+                        <p id="charts-title-11" class="grid-title"></p>
+                        <p id="charts-artist-11" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-12">
+                        <img id="charts-cover-12">
+                        <p id="charts-title-12" class="grid-title"></p>
+                        <p id="charts-artist-12" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-13">
+                        <img id="charts-cover-13">
+                        <p id="charts-title-13" class="grid-title"></p>
+                        <p id="charts-artist-13" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-14">
+                        <img id="charts-cover-14">
+                        <p id="charts-title-14" class="grid-title"></p>
+                        <p id="charts-artist-14" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-15">
+                        <img id="charts-cover-15">
+                        <p id="charts-title-15" class="grid-title"></p>
+                        <p id="charts-artist-15" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-16">
+                        <img id="charts-cover-16">
+                        <p id="charts-title-16" class="grid-title"></p>
+                        <p id="charts-artist-16" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-17">
+                        <img id="charts-cover-17">
+                        <p id="charts-title-17" class="grid-title"></p>
+                        <p id="charts-artist-17" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-18">
+                        <img id="charts-cover-18">
+                        <p id="charts-title-18" class="grid-title"></p>
+                        <p id="charts-artist-18" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-19">
+                        <img id="charts-cover-19">
+                        <p id="charts-title-19" class="grid-title"></p>
+                        <p id="charts-artist-19" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="charts-search-result-element-20">
+                        <img id="charts-cover-20">
+                        <p id="charts-title-20" class="grid-title"></p>
+                        <p id="charts-artist-20" class="grid-artist"></p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    
+        <section class="trending-section section-padding">
+            <div>
+                <div class="h2-button-wrapper page-padding">
+                    <h2>Trending in Deutschland</h2>
+                </div>
+                <div class="song-grid">
+                    <a class="song-grid-element shadow" id="trending-search-result-element-1">
+                        <img id="trending-cover-1">
+                        <p id="trending-title-1" class="grid-title"></p>
+                        <p id="trending-artist-1" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-2">
+                        <img id="trending-cover-2">
+                        <p id="trending-title-2" class="grid-title"></p>
+                        <p id="trending-artist-2" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-3">
+                        <img id="trending-cover-3">
+                        <p id="trending-title-3" class="grid-title"></p>
+                        <p id="trending-artist-3" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-4">
+                        <img id="trending-cover-4">
+                        <p id="trending-title-4" class="grid-title"></p>
+                        <p id="trending-artist-4" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-5">
+                        <img id="trending-cover-5">
+                        <p id="trending-title-5" class="grid-title"></p>
+                        <p id="trending-artist-5" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-6">
+                        <img id="trending-cover-6">
+                        <p id="trending-title-6" class="grid-title"></p>
+                        <p id="trending-artist-6" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-7">
+                        <img id="trending-cover-7">
+                        <p id="trending-title-7" class="grid-title"></p>
+                        <p id="trending-artist-7" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-8">
+                        <img id="trending-cover-8">
+                        <p id="trending-title-8" class="grid-title"></p>
+                        <p id="trending-artist-8" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-9">
+                        <img id="trending-cover-9">
+                        <p id="trending-title-9" class="grid-title"></p>
+                        <p id="trending-artist-9" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-10">
+                        <img id="trending-cover-10">
+                        <p id="trending-title-10" class="grid-title"></p>
+                        <p id="trending-artist-10" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-11">
+                        <img id="trending-cover-11">
+                        <p id="trending-title-11" class="grid-title"></p>
+                        <p id="trending-artist-11" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-12">
+                        <img id="trending-cover-12">
+                        <p id="trending-title-12" class="grid-title"></p>
+                        <p id="trending-artist-12" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-13">
+                        <img id="trending-cover-13">
+                        <p id="trending-title-13" class="grid-title"></p>
+                        <p id="trending-artist-13" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-14">
+                        <img id="trending-cover-14">
+                        <p id="trending-title-14" class="grid-title"></p>
+                        <p id="trending-artist-14" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-15">
+                        <img id="trending-cover-15">
+                        <p id="trending-title-15" class="grid-title"></p>
+                        <p id="trending-artist-15" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-16">
+                        <img id="trending-cover-16">
+                        <p id="trending-title-16" class="grid-title"></p>
+                        <p id="trending-artist-16" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-17">
+                        <img id="trending-cover-17">
+                        <p id="trending-title-17" class="grid-title"></p>
+                        <p id="trending-artist-17" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-18">
+                        <img id="trending-cover-18">
+                        <p id="trending-title-18" class="grid-title"></p>
+                        <p id="trending-artist-18" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-19">
+                        <img id="trending-cover-19">
+                        <p id="trending-title-19" class="grid-title"></p>
+                        <p id="trending-artist-19" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="trending-search-result-element-20">
+                        <img id="trending-cover-20">
+                        <p id="trending-title-20" class="grid-title"></p>
+                        <p id="trending-artist-20" class="grid-artist"></p>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <section class="charts-section">
-        <div>
-            <div class="h2-button-wrapper">
-                <h2>Top Charts Weltweit</h2>
-                <a href="#"><button>Mehr anzeigen</button></a>
+        <section class="newhits-section section-padding">
+            <div>
+                <div class="h2-button-wrapper page-padding">
+                    <h2>Beliebte Neuheiten</h2>
+                </div>
+                <div class="song-grid">
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-1">
+                        <img id="newhits-cover-1">
+                        <p id="newhits-title-1" class="grid-title"></p>
+                        <p id="newhits-artist-1" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-2">
+                        <img id="newhits-cover-2">
+                        <p id="newhits-title-2" class="grid-title"></p>
+                        <p id="newhits-artist-2" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-3">
+                        <img id="newhits-cover-3">
+                        <p id="newhits-title-3" class="grid-title"></p>
+                        <p id="newhits-artist-3" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-4">
+                        <img id="newhits-cover-4">
+                        <p id="newhits-title-4" class="grid-title"></p>
+                        <p id="newhits-artist-4" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-5">
+                        <img id="newhits-cover-5">
+                        <p id="newhits-title-5" class="grid-title"></p>
+                        <p id="newhits-artist-5" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-6">
+                        <img id="newhits-cover-6">
+                        <p id="newhits-title-6" class="grid-title"></p>
+                        <p id="newhits-artist-6" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-7">
+                        <img id="newhits-cover-7">
+                        <p id="newhits-title-7" class="grid-title"></p>
+                        <p id="newhits-artist-7" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-8">
+                        <img id="newhits-cover-8">
+                        <p id="newhits-title-8" class="grid-title"></p>
+                        <p id="newhits-artist-8" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-9">
+                        <img id="newhits-cover-9">
+                        <p id="newhits-title-9" class="grid-title"></p>
+                        <p id="newhits-artist-9" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-10">
+                        <img id="newhits-cover-10">
+                        <p id="newhits-title-10" class="grid-title"></p>
+                        <p id="newhits-artist-10" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-11">
+                        <img id="newhits-cover-11">
+                        <p id="newhits-title-11" class="grid-title"></p>
+                        <p id="newhits-artist-11" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-12">
+                        <img id="newhits-cover-12">
+                        <p id="newhits-title-12" class="grid-title"></p>
+                        <p id="newhits-artist-12" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-13">
+                        <img id="newhits-cover-13">
+                        <p id="newhits-title-13" class="grid-title"></p>
+                        <p id="newhits-artist-13" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-14">
+                        <img id="newhits-cover-14">
+                        <p id="newhits-title-14" class="grid-title"></p>
+                        <p id="newhits-artist-14" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-15">
+                        <img id="newhits-cover-15">
+                        <p id="newhits-title-15" class="grid-title"></p>
+                        <p id="newhits-artist-15" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-16">
+                        <img id="newhits-cover-16">
+                        <p id="newhits-title-16" class="grid-title"></p>
+                        <p id="newhits-artist-16" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-17">
+                        <img id="newhits-cover-17">
+                        <p id="newhits-title-17" class="grid-title"></p>
+                        <p id="newhits-artist-17" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-18">
+                        <img id="newhits-cover-18">
+                        <p id="newhits-title-18" class="grid-title"></p>
+                        <p id="newhits-artist-18" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-19">
+                        <img id="newhits-cover-19">
+                        <p id="newhits-title-19" class="grid-title"></p>
+                        <p id="newhits-artist-19" class="grid-artist"></p>
+                    </a>
+                    <a class="song-grid-element shadow" id="newhits-search-result-element-20">
+                        <img id="newhits-cover-20">
+                        <p id="newhits-title-20" class="grid-title"></p>
+                        <p id="newhits-artist-20" class="grid-artist"></p>
+                    </a>
+                </div>
             </div>
-            <div class="song-grid">
-                <a class="song-grid-element" id="charts-search-result-element-1">
-                    <img id="charts-cover-1">
-                    <p id="charts-title-1"></p>
-                    <p id="charts-artist-1"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-2">
-                    <img id="charts-cover-2">
-                    <p id="charts-title-2"></p>
-                    <p id="charts-artist-2"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-3">
-                    <img id="charts-cover-3">
-                    <p id="charts-title-3"></p>
-                    <p id="charts-artist-3"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-4">
-                    <img id="charts-cover-4">
-                    <p id="charts-title-4"></p>
-                    <p id="charts-artist-4"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-5">
-                    <img id="charts-cover-5">
-                    <p id="charts-title-5"></p>
-                    <p id="charts-artist-5"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-6">
-                    <img id="charts-cover-6">
-                    <p id="charts-title-6"></p>
-                    <p id="charts-artist-6"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-7">
-                    <img id="charts-cover-7">
-                    <p id="charts-title-7"></p>
-                    <p id="charts-artist-7"></p>
-                </a>
-                <a class="song-grid-element" id="charts-search-result-element-8">
-                    <img id="charts-cover-8">
-                    <p id="charts-title-8"></p>
-                    <p id="charts-artist-8"></p>
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </article>
 
-    <section class="trending-section">
-        <div>
-            <div class="h2-button-wrapper">
-                <h2>Trending in Deutschland</h2>
-                <a href="#"><button>Mehr anzeigen</button></a>
-            </div>
-            <div class="song-grid">
-                <a class="song-grid-element" id="trending-search-result-element-1">
-                    <img id="trending-cover-1">
-                    <p id="trending-title-1"></p>
-                    <p id="trending-artist-1"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-2">
-                    <img id="trending-cover-2">
-                    <p id="trending-title-2"></p>
-                    <p id="trending-artist-2"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-3">
-                    <img id="trending-cover-3">
-                    <p id="trending-title-3"></p>
-                    <p id="trending-artist-3"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-4">
-                    <img id="trending-cover-4">
-                    <p id="trending-title-4"></p>
-                    <p id="trending-artist-4"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-5">
-                    <img id="trending-cover-5">
-                    <p id="trending-title-5"></p>
-                    <p id="trending-artist-5"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-6">
-                    <img id="trending-cover-6">
-                    <p id="trending-title-6"></p>
-                    <p id="trending-artist-6"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-7">
-                    <img id="trending-cover-7">
-                    <p id="trending-title-7"></p>
-                    <p id="trending-artist-7"></p>
-                </a>
-                <a class="song-grid-element" id="trending-search-result-element-8">
-                    <img id="trending-cover-8">
-                    <p id="trending-title-8"></p>
-                    <p id="trending-artist-8"></p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>&copy 2020 Christopher Lang</footer>
+    <footer class="footer section padding page-padding">&copy 2020 Christopher Lang</footer>
 
     <script src="js/index.js"></script>
 </body>

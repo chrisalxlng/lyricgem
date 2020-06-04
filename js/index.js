@@ -1,6 +1,7 @@
 //API URLs:
 const DEEZER_TRENDING_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/1111143121";
 const DEEZER_CHARTS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/3155776842";
+const DEEZER_NEWHITS_URL = "https://deezerdevs-deezer.p.rapidapi.com/playlist/65490170";
 const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 const DEEZER_TRACK_BY_ID_URL = "https://deezerdevs-deezer.p.rapidapi.com/track/";
 const CANARADO_LYRICS_URL = "https://canarado-lyrics.p.rapidapi.com/lyrics/";
@@ -42,9 +43,11 @@ function getAPIData (api_url, count, type, preID) {
             }
             if (type == "grid") {
                 for (let index = 1; index < count + 1; index++) {
-                    document.getElementById(preID + "-title-" + index).innerHTML = object.tracks.data[index-1].title;
-                    document.getElementById(preID + "-artist-" + index).innerHTML = object.tracks.data[index-1].artist.name;
-                    document.getElementById(preID + "-cover-" + index).src = object.tracks.data[index-1].album.cover_small;
+                    var title = checkForStringLength(object.tracks.data[index-1].title, 14, 14);
+                    var artist = checkForStringLength(object.tracks.data[index-1].artist.name, 15, 15);
+                    document.getElementById(preID + "-title-" + index).innerHTML = title;
+                    document.getElementById(preID + "-artist-" + index).innerHTML = artist;
+                    document.getElementById(preID + "-cover-" + index).src = object.tracks.data[index-1].album.cover_medium;
                     document.getElementById(preID + "-search-result-element-" + index).href = "song.html?id=" + object.tracks.data[index-1].id;
                 }
             }
@@ -61,7 +64,7 @@ function getAPIData (api_url, count, type, preID) {
             else if (type == "song") {
                 var title = checkForStringLength(object.title_short, 15, 60);
                 var artist = checkForStringLength(object.artist.name, 20, 60);
-                var album = checkForStringLength(object.album.title, 20, 30);
+                var album = checkForStringLength(object.album.title, 20, 25);
                 document.getElementById("title").innerHTML = title;
                 document.getElementById("artist").innerHTML = artist;
                 document.getElementById("album").innerHTML = '"' + album + '"';
@@ -331,14 +334,6 @@ function getDeezerSongID(queryString) {
     return id;
 }
 
-window.onload = function() {
-    if (window.location.href.indexOf('song.html') > -1) {
-        var songID = getDeezerSongID(window.location.search);
-        var url = getDeezerSongLink(songID);
-        getAPIData(url, 0, "song", "");
-    } 
-  }
-
 //
 //-------------------------------------------------------------------------------------------
 //
@@ -394,18 +389,7 @@ function openSearchView() {
     document.querySelector("#js-searchbar-icon").style.animationName = "start-opacity";
     document.querySelector(".search-result-container").classList.remove("hide");
     document.querySelector(".searchbar").select();
-    document.querySelector("#body").classList.add("stop-scrolling");
     document.querySelector(".search-result-container").style.animationName = "open-search-view";
-
-    var exitSearchViewElement = document.createElement("div");
-    exitSearchViewElement.id = "exitSearchViewElement";
-    exitSearchViewElement.style.zIndex = "10";
-    exitSearchViewElement.style.width = "100vw";
-    exitSearchViewElement.style.height = "500vh";
-    exitSearchViewElement.style.position = "absolute";
-    exitSearchViewElement.style.top = "0";
-    document.getElementById("body").appendChild(exitSearchViewElement);
-    exitSearchViewElement.addEventListener("click", scrollToCloseSearchView);
 }
 
 function closeSearchView() {
@@ -416,7 +400,6 @@ function closeSearchView() {
     document.querySelector("#js-search").style.animationName = "start-opacity";
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
-    document.querySelector("#body").classList.remove("stop-scrolling");
     if (searchResultElementsCreated) {
         removeSearchResultElements(publicCount, publicPreID);
     }
@@ -435,6 +418,20 @@ function closeSearchView() {
         document.querySelector("#js-searchbar-icon").style.display = "none";
         document.querySelector("#js-search").style.display = "block";
     }, 100);
+}
+
+window.onload = function() {
+    if (window.location.href.indexOf('song.html') > -1) {
+        var songID = getDeezerSongID(window.location.search);
+        var url = getDeezerSongLink(songID);
+        getAPIData(url, 0, "song", "");
+    } 
+    else if (window.location.href.indexOf('index.html') > -1) {
+        getGridData(DEEZER_CHARTS_URL, 20,"charts");
+        getGridData(DEEZER_TRENDING_URL, 20,"trending");
+        getGridData(DEEZER_NEWHITS_URL, 20,"newhits");
+    }
+
 }
 
 document.getElementById("js-search").addEventListener("click", openSearchView);

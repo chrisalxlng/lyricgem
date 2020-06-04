@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
 
 :root {
-    --primary-color: linear-gradient(to right, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100));
-    --secondary-color: #FFFFFF;
+    --bg-color: linear-gradient(to bottom right, rgb(231, 53, 34), rgb(142, 68, 173));
+    --bg-color-accent: linear-gradient(to bottom right, rgb(255, 25, 0), rgb(179, 0, 255));
+    --primary-color: rgb(142, 68, 173);
+    --secondary-color: rgb(231, 53, 34);
+    --primary-text-color: #FFFFFF;
+    --secondary-text-color: #000000;
     --active-color: rgba(255, 255, 255, 0.8);
 
     --main-font: Montserrat, sans-serif;
+    --secondary-font: Source Sans Pro, sans-serif;
 }
 
 body {
@@ -13,7 +19,9 @@ body {
     padding: 0;
     width: 100vw;
     box-sizing: border-box;
-    background: var(--primary-color);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background: var(--bg-color);
     font-family: var(--main-font);
 }
 
@@ -26,8 +34,8 @@ body {
 }
 
 .section-padding {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .element-margin {
@@ -36,7 +44,7 @@ body {
 }
 
 .shadow {
-    box-shadow: 1px 1px 6px black;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.432);
 }
 
 .hide.fas {
@@ -50,7 +58,7 @@ body {
 
 h1, h2, h3 {
     margin: 0;
-    color: var(--secondary-color);
+    color: var(--primary-text-color);
 }
 
 h1 {
@@ -59,7 +67,8 @@ h1 {
 
 h2 {
     font-size: 5vw;
-    font-weight: 500;
+    font-weight: 400;
+    font-family: var(--secondary-font);
 }
 
 h3 {
@@ -78,13 +87,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-text-color);
     z-index: 100;
 }
 
 nav i {
     cursor: pointer;
     align-self: center;
+    color: var(--secondary-text-color);
 }
 
 .logo, #js-search, #js-close, .searchbar {
@@ -103,12 +113,10 @@ nav i {
 
 .search-result-container {
     width: 100vw;
-    max-height: 80vh;
-    background-color: var(--secondary-color);
+    height: calc(100vh - 60px);
+    background-color: var(--primary-text-color);
     z-index: 1;
     padding-bottom: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
     animation-duration: .1s;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
@@ -129,7 +137,7 @@ nav i {
 
 .searchbar:focus {
     outline: none;
-    border: 1.5px solid rgb(32, 58, 67);
+    border: 1.5px solid var(--secondary-color);
 }
 
 #js-searchbar-icon {
@@ -137,7 +145,6 @@ nav i {
     position: absolute;
     left: 66px;
     font-size: 10px;
-    font-weight: 600;
     color: rgb(134, 134, 134);
     animation-duration: .5s;
     z-index: 100;
@@ -176,12 +183,12 @@ nav i {
     flex-direction: column;
     justify-content: space-around;
     padding: 0 10px;
-    color: rgb(32, 58, 67);
+    color: var(--secondary-text-color);
 }
 
 .search-result-element p {
     margin: 0;
-    font-size: 4vw;
+    font-size: 12px;
 }
 
 .search-result-title {
@@ -201,12 +208,12 @@ nav i {
 }
 
 .logo {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 700;
 }
 
 .footer {
-    color: var(--secondary-color);
+    color: var(--primary-text-color);
     font-size: 3vw;
     padding-top: 10px;
     padding-bottom: 10px;
