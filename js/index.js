@@ -43,7 +43,7 @@ function getAPIData (api_url, count, type, preID) {
             }
             if (type == "grid") {
                 for (let index = 1; index < count + 1; index++) {
-                    var title = checkForStringLength(object.tracks.data[index-1].title, 14, 14);
+                    var title = checkForStringLength(object.tracks.data[index-1].title, 15, 35);
                     var artist = checkForStringLength(object.tracks.data[index-1].artist.name, 15, 15);
                     document.getElementById(preID + "-title-" + index).innerHTML = title;
                     document.getElementById(preID + "-artist-" + index).innerHTML = artist;
@@ -112,7 +112,7 @@ function checkForStringLength(string, singleStringLength, totalStringLength) {
     var splitString = string.split(" ");
     string = "";
     for (let index = 0; index < splitString.length; index++) {
-        if (splitString[index].length > singleStringLength+3) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
+        if (splitString[index].length > singleStringLength+1) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
     }
     for (let index = 0; index < splitString.length; index++) {
         if (index != splitString.length-1) string += splitString[index] + " ";
@@ -120,7 +120,7 @@ function checkForStringLength(string, singleStringLength, totalStringLength) {
     }
 
     //check for length of the whole string so it is not longer than 60 characters in total
-    if (string.length > totalStringLength+3) string = string.substring(0,totalStringLength) + "...";
+    if (string.length > totalStringLength+1) string = string.substring(0,totalStringLength) + "...";
     //if there is a space at the end of the string, remove it
     if (string[totalStringLength-1] == " ") string = string.substring(0,totalStringLength-1) + "...";
 
