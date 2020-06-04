@@ -37,12 +37,16 @@
 .song-cover {
     position: relative;
     border-radius: 30px;
-    border: 1px dotted var(--secondary-color);
+    box-shadow: 1px 1px 1px 1px var(--secondary-color);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    
+    justify-content: center;   
+}
+
+#artist {
+    font-family: var(--main-font);
+    font-weight: 500;
 }
 
 .song-cover, #deezer-link {
