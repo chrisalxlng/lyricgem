@@ -112,7 +112,7 @@ function checkForStringLength(string, singleStringLength, totalStringLength) {
     var splitString = string.split(" ");
     string = "";
     for (let index = 0; index < splitString.length; index++) {
-        if (splitString[index].length > singleStringLength) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
+        if (splitString[index].length > singleStringLength+3) splitString[index] = splitString[index].substring(0,singleStringLength) + "...";
     }
     for (let index = 0; index < splitString.length; index++) {
         if (index != splitString.length-1) string += splitString[index] + " ";
@@ -120,7 +120,7 @@ function checkForStringLength(string, singleStringLength, totalStringLength) {
     }
 
     //check for length of the whole string so it is not longer than 60 characters in total
-    if (string.length > totalStringLength) string = string.substring(0,totalStringLength) + "...";
+    if (string.length > totalStringLength+3) string = string.substring(0,totalStringLength) + "...";
     //if there is a space at the end of the string, remove it
     if (string[totalStringLength-1] == " ") string = string.substring(0,totalStringLength-1) + "...";
 
@@ -389,7 +389,17 @@ function openSearchView() {
     document.querySelector("#js-searchbar-icon").style.animationName = "start-opacity";
     document.querySelector(".search-result-container").classList.remove("hide");
     document.querySelector(".searchbar").select();
+    document.querySelector("#body").classList.add("stop-scrolling");
     document.querySelector(".search-result-container").style.animationName = "open-search-view";
+
+    var exitSearchViewElement = document.createElement("div");
+    exitSearchViewElement.id = "exitSearchViewElement";
+    exitSearchViewElement.style.zIndex = "10";
+    exitSearchViewElement.style.width = "100vw";
+    exitSearchViewElement.style.height = "500vh";
+    exitSearchViewElement.style.position = "absolute";
+    exitSearchViewElement.style.top = "0";
+    document.getElementById("body").appendChild(exitSearchViewElement);
 }
 
 function closeSearchView() {
@@ -400,6 +410,8 @@ function closeSearchView() {
     document.querySelector("#js-search").style.animationName = "start-opacity";
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
+    document.querySelector("#body").classList.remove("stop-scrolling");
+    document.getElementById("exitSearchViewElement").remove();
     if (searchResultElementsCreated) {
         removeSearchResultElements(publicCount, publicPreID);
     }
