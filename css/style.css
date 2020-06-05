@@ -27,6 +27,7 @@ body {
 
 .page-wrapper {
     padding-top: 50px;
+    min-height: calc(100vh - 83px);
 }
 
 .page-padding {
@@ -133,6 +134,7 @@ nav i {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 0px;
+    -webkit-appearance: none;
 }
 
 .searchbar:focus {
@@ -142,11 +144,15 @@ nav i {
 
 #js-searchbar-icon {
     display: none;
-    position: absolute;
-    left: 66px;
     font-size: 10px;
     color: rgb(134, 134, 134);
     animation-duration: .5s;
+}
+
+#js-searchbar-icon-anchor {
+    position: absolute;
+    left: 66px;
+    top: 20px;
     z-index: 100;
 }
 
@@ -210,6 +216,42 @@ nav i {
 .logo {
     color: var(--secondary-color);
     font-weight: 700;
+}
+
+.song-grid-element {
+    flex: 0 0 auto;
+    margin-left: 15px;
+    background-color: var(--primary-text-color);
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.song-grid-element img {
+    width: 100%;
+    padding-bottom: 3px;
+}
+
+.song-grid-element p {
+    margin: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 9px;
+}
+
+.grid-title {
+    color: var(--secondary-text-color);
+    font-weight: 600;
+}
+
+.grid-artist {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    padding-bottom: 4px;
+    padding-top: 1px;
 }
 
 .footer {

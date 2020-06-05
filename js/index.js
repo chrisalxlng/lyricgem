@@ -6,9 +6,7 @@ const DEEZER_SEARCH_URL = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 const DEEZER_TRACK_BY_ID_URL = "https://deezerdevs-deezer.p.rapidapi.com/track/";
 const CANARADO_LYRICS_URL = "https://canarado-lyrics.p.rapidapi.com/lyrics/";
 
-//
 //-------------------------------------------------------------------------------------------
-//
 //GET SEARCH DATA
 
 //Variables:
@@ -61,6 +59,16 @@ function getAPIData (api_url, count, type, preID) {
                     document.getElementById(preID + "-search-result-element-" + index).href = "song.html?id=" + object.data[index-1].id;
                 }
             } 
+            else if (type == "search-results") {
+                for (let index = 1; index < count + 1; index++) {
+                    var title = checkForStringLength(object.data[index-1].title, 15, 35);
+                    var artist = checkForStringLength(object.data[index-1].artist.name, 13, 13);
+                    document.getElementById("res-title-" + index).innerHTML = title;
+                    document.getElementById("res-artist-" + index).innerHTML = artist;
+                    document.getElementById("res-cover-" + index).src = object.data[index-1].album.cover_medium;
+                    document.getElementById("res-grid-element-" + index).href = "song.html?id=" + object.data[index-1].id;
+                }
+            }
             else if (type == "song") {
                 var title = checkForStringLength(object.title_short, 15, 60);
                 var artist = checkForStringLength(object.artist.name, 20, 60);
@@ -291,6 +299,7 @@ document.onkeydown = function(event) {
 //call example in HTML: onkeyup="initSearchResultElements(this, 2, 'res')"
 function initSearchResultElements(element, maxCount, preID, event) {
     if (element.value != previousSearchFieldValue) {
+        document.querySelector("#js-searchbar-icon-anchor").href = "search-results.html?q=" + document.querySelector("#searchbar-nav").value;
         //Delaying the function execute
         if (this.timer) {
             window.clearTimeout(this.timer);
@@ -312,17 +321,14 @@ function initSearchResultElements(element, maxCount, preID, event) {
     }  
 }
 
-//
 //-------------------------------------------------------------------------------------------
-//
 //GET GRID DATA
 function getGridData(api_url, count, preID) {
     getAPIData(api_url, count, "grid", preID);
 }
 
-//
+
 //-------------------------------------------------------------------------------------------
-//
 //GET SONG DATA
 function getDeezerSongLink(id) {
     return DEEZER_TRACK_BY_ID_URL + id;
@@ -334,9 +340,7 @@ function getDeezerSongID(queryString) {
     return id;
 }
 
-//
 //-------------------------------------------------------------------------------------------
-//
 //GET SONG LYRICS
 function getLyricsURL(title, artist) {
     return CANARADO_LYRICS_URL + title + " " + artist;
@@ -366,9 +370,7 @@ function getLyrics(url) {
     });
 }
 
-//
 //-------------------------------------------------------------------------------------------
-//
 //OPEN SEARCH VIEW MOBILE
 
 function scrollToCloseSearchView() {
@@ -432,6 +434,49 @@ function closeSearchView() {
     }, 100);
 }
 
+//-------------------------------------------------------------------------------------------
+//SEARCH RESULTS PAGE
+
+function getQuery() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var q = urlParams.get('q');
+    return q;
+}
+
+/*
+<a class="song-grid-element shadow" id="charts-search-result-element-1">
+    <img id="res-cover-1">
+    <p id="charts-title-1" class="grid-title"></p>
+    <p id="charts-artist-1" class="grid-artist"></p>
+</a>
+*/
+function createResultCards(count) {
+    for (let index = 1; index < count+1; index++) {
+        var anchorElement = document.createElement("a");
+        anchorElement.classList.add("song-grid-element");
+        anchorElement.classList.add("shadow");
+        anchorElement.id = "res-grid-element-" + index;
+        document.getElementById("res-grid").appendChild(anchorElement);
+
+        var imageElement_cover = document.createElement("img");
+        imageElement_cover.id = "res-cover-" + index;
+        anchorElement.appendChild(imageElement_cover);
+
+        var titleElement = document.createElement("p");
+        titleElement.id = "res-title-" + index;
+        titleElement.classList.add("grid-title");
+        anchorElement.appendChild(titleElement);
+        
+        var artistElement = document.createElement("p");
+        artistElement.id = "res-artist-" + index;
+        artistElement.classList.add("grid-artist");
+        anchorElement.appendChild(artistElement);
+    }
+}
+
+//-------------------------------------------------------------------------------------------
+//WINDOW.ONLOAD
+
 window.onload = function() {
     if (window.location.href.indexOf('song.html') > -1) {
         var songID = getDeezerSongID(window.location.search);
@@ -443,7 +488,32 @@ window.onload = function() {
         getGridData(DEEZER_TRENDING_URL, 20,"trending");
         getGridData(DEEZER_NEWHITS_URL, 20,"newhits");
     }
+    else if (window.location.href.indexOf('search-results.html') > -1) {
+        var resultCount = 0;
+        var queryText = getQuery();
+        var resURL = DEEZER_SEARCH_URL + queryText;
+        document.querySelector("#results-header").innerHTML = 'Suchergebnisse für "' + queryText + '"';
 
+        fetch(resURL, {
+            "method": "GET",
+            "headers": 
+            {
+                "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                "x-rapidapi-key": "486af7d15cmsh8635265f7c2bdc9p1b2081jsnf5c14c14946b"
+            }
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (object) {
+           resultCount = object.data.length;
+           createResultCards(resultCount);
+           getAPIData(resURL, resultCount, "search-results", "");
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+    }
 }
 
 document.getElementById("js-search").addEventListener("click", openSearchView);

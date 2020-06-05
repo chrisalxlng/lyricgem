@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"weeknd" - lyricgem</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search-results.css">
+    <script src="https://kit.fontawesome.com/6a2f31ed4f.js" crossorigin="anonymous"></script>
+</head>
+<body id="body">
+
+    <nav>
+        <a class="logo" href="index.html">lyricgem</a>
+        <div class="searchbar-wrapper">
+            <div class="searchbar-logo-wrapper">
+                <a id="js-searchbar-icon-anchor"><i id="js-searchbar-icon" class="fas fa-search"></i></a>
+                <input id="searchbar-nav" class="searchbar hide" type="search" maxlength="50" placeholder="Nach Song suchen" onkeyup="initSearchResultElements(this, 20, 'res', event)">
+                <i id="js-close" class="fas fa-arrow-left"></i>
+            </div>
+            <div class="search-result-container hide" id="search-result-container"></div>
+        </div>
+        <i id="js-search" class="fas fa-search"></i>
+    </nav>
+
+    <article class="page-wrapper">
+        <section class="header-section page-padding section-padding">
+            <div>
+                <h1 id="results-header"></h1>
+            </div>
+        </section>
+
+        <section class="grid-section page-padding section-padding">
+            <div id="res-grid"></div>
+        </section>
+    </article>
+
+    <footer class="footer section padding page-padding">&copy 2020 Christopher Lang</footer>
+
+    <script src="js/index.js"></script>
+</body>
+</html>

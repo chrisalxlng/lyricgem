@@ -1,0 +1,15 @@
+.grid-section {
+    padding-top: 10px;
+}
+
+#res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    justify-items: center;
+}
+
+.song-grid-element {
+    margin-left: 0px;
+}

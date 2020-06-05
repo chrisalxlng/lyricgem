@@ -14,8 +14,8 @@
         <a class="logo" href="index.html">lyricgem</a>
         <div class="searchbar-wrapper">
             <div class="searchbar-logo-wrapper">
-                <i id="js-searchbar-icon" class="fas fa-search"></i>
-                <input class="searchbar hide" type="search" maxlength="50" placeholder="Nach Song suchen" onkeyup="initSearchResultElements(this, 20, 'res', event)">
+                <a id="js-searchbar-icon-anchor"><i id="js-searchbar-icon" class="fas fa-search"></i></a>
+                <input id="searchbar-nav" class="searchbar hide" type="search" maxlength="50" placeholder="Nach Song suchen" onkeyup="initSearchResultElements(this, 20, 'res', event)">
                 <i id="js-close" class="fas fa-arrow-left"></i>
             </div>
             <div class="search-result-container hide" id="search-result-container"></div>
