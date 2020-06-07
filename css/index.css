@@ -82,11 +82,6 @@
     transition: .3s;
 }
 
-.button-chevron:hover {
-    transition: .3s;
-    background-color: var(--active-color);
-}
-
 .chevron-right {
     margin-left: 5px;
 }
@@ -161,5 +156,12 @@
     #js-searchbar-icon-main {
         bottom: 26px;
         left: 15px;
+    }
+}
+
+@media (hover: hover) {
+    .button-chevron:hover {
+        transition: .3s;
+        background-color: var(--active-color);
     }
 }
