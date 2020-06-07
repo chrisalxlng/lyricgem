@@ -168,10 +168,6 @@ nav i {
     height: 40px;
 }
 
-.search-result-element:hover {
-    background-color: rgba(216, 215, 215, 0.863);
-}
-
 .search-result-active {
     background-color: rgba(216, 215, 215, 0.562);
 }
@@ -447,11 +443,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         background-color: white;
         opacity: 0.6;
     }
-
-    .song-grid-element:hover {
-        transform: scale(1.05);
-        transition: .3s;
-    }
 }
 
 @media (min-width: 1000px) {
@@ -491,5 +482,16 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     .footer {
         font-size: 10px;
         padding-bottom: 20px;
+    }
+}
+
+@media (hover: hover) {
+    .search-result-element:hover {
+        background-color: rgba(216, 215, 215, 0.863);
+    }
+
+    .song-grid-element:hover {
+        transform: scale(1.05);
+        transition: .3s;
     }
 }

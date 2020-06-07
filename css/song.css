@@ -87,11 +87,6 @@
     transition: .3s;
 }
 
-#song-preview:hover {
-    transition: .3s;
-    background-color: var(--active-color);
-}
-
 #deezer-link {
     background-color: var(--primary-text-color);
     height: 40px;
@@ -103,10 +98,6 @@
     margin-top: 30px;
     transition: .3s;
     align-self: center;
-}
-#deezer-link:hover {
-    transition: .3s;
-    background-color: var(--active-color);
 }
 
 #deezer-link img {
@@ -232,5 +223,17 @@ pre {
 
     .lyrics-section {
         padding-top: 60px;
+    }
+}
+
+@media (hover: hover) {
+    #deezer-link:hover {
+        transition: .3s;
+        background-color: var(--active-color);
+    }
+
+    #song-preview:hover {
+        transition: .3s;
+        background-color: var(--active-color);
     }
 }
