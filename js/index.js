@@ -61,7 +61,7 @@ function getAPIData (api_url, count, type, preID) {
             } 
             else if (type == "search-results") {
                 for (let index = 1; index < count + 1; index++) {
-                    var title = checkForStringLength(object.data[index-1].title, 15, 35);
+                    var title = checkForStringLength(object.data[index-1].title, 15, 30);
                     var artist = checkForStringLength(object.data[index-1].artist.name, 13, 13);
                     document.getElementById("res-title-" + index).innerHTML = title;
                     document.getElementById("res-artist-" + index).innerHTML = artist;
@@ -108,7 +108,9 @@ function getAPIData (api_url, count, type, preID) {
                 };
                 getLyrics(getLyricsURL(object.title_short, object.artist.name));
             } else {}
-        }   
+        }
+        const loader = document.querySelector(".loader");
+        loader.className += " hidden"; // class "loader hidden"   
     }) 
     .catch(function (error) {
         console.error(error);
@@ -270,6 +272,10 @@ function checkForAutocomplete(event, preID) {
     //if key == "Enter"
     else if (event.keyCode == 13 && focus > 0) {
         document.querySelector("#" + preID + "-search-result-element-" + (focus)).click();
+    } 
+    //if key == "Enter" and cursor in search input
+    else if (event.keyCode == 13 && focus == 0) {
+        window.open("search-results.html?q=" + document.querySelector("#searchbar-nav").value, "_self");
     } else {}
 
     //remove previous focus
@@ -379,41 +385,61 @@ function scrollToCloseSearchView() {
 }
 
 function openSearchView() {
-    document.querySelector(".logo").style.display = "none";
-    document.querySelector(".logo").style.animationName = "end-opacity";
+    if (!(window.matchMedia("(min-width: 700px)").matches)) {
+        document.querySelector(".logo").style.display = "none";
+        document.querySelector(".logo").style.animationName = "end-opacity";
+        document.querySelector(".search-result-container").style.animationName = "open-search-view";
+    } else {
+        document.querySelector(".search-result-container").style.animationName = "start-opacity";
+        document.querySelector(".searchbar-logo-wrapper").style.animationName = "start-opacity";
+    }
     document.querySelector("#js-search").style.display = "none";
     document.querySelector("#js-search").style.animationName = "end-opacity";
     document.querySelector("#js-close").style.display = "block";
     document.querySelector("#js-close").style.animationName = "start-opacity";
     document.querySelector(".searchbar").classList.remove("hide");
     document.querySelector(".searchbar").style.animationName = "start-opacity";
-    document.querySelector("#js-searchbar-icon").style.display = "block";
     document.querySelector("#js-searchbar-icon").style.animationName = "start-opacity";
+    document.querySelector("#js-searchbar-icon").style.display = "block";
     document.querySelector(".search-result-container").classList.remove("hide");
+    document.querySelector(".searchbar-wrapper").style.display = "block";
     document.querySelector(".searchbar").select();
     document.querySelector("#body").classList.add("stop-scrolling");
-    document.querySelector(".search-result-container").style.animationName = "open-search-view";
 
     var exitSearchViewElement = document.createElement("div");
     exitSearchViewElement.id = "exitSearchViewElement";
-    exitSearchViewElement.style.zIndex = "10";
+    exitSearchViewElement.style.zIndex = "50";
     exitSearchViewElement.style.width = "100vw";
     exitSearchViewElement.style.height = "500vh";
     exitSearchViewElement.style.position = "absolute";
     exitSearchViewElement.style.top = "0";
+    exitSearchViewElement.classList.add("exit-search-view-element");
+    exitSearchViewElement.addEventListener("click", closeSearchView);
     document.getElementById("body").appendChild(exitSearchViewElement);
+
+    var pElement = document.createElement("p");
+    pElement.classList.add("no-search-result-element");
+    pElement.innerHTML = "Suche nach Ergebnissen über Titel, Künstler oder Album des Songs.";
+    document.getElementById("search-result-container").appendChild(pElement);
+    noSearchResultElementsCreated = true;
 }
 
 function closeSearchView() {
-    document.querySelector(".search-result-container").style.animationName = "close-search-view";
-    document.querySelector(".logo").style.animationName = "start-opacity";
-    document.querySelector("#js-close").style.animationName = "end-opacity";
-    document.querySelector("#js-searchbar-icon").style.animationName = "end-opacity";
+    if (!(window.matchMedia("(min-width: 700px)").matches)) {
+        document.querySelector(".logo").style.animationName = "start-opacity";
+        document.querySelector(".search-result-container").style.animationName = "close-search-view";
+    } else {
+        document.querySelector(".search-result-container").style.animationName = "end-opacity";
+        document.querySelector(".searchbar-logo-wrapper").style.animationName = "end-opacity";
+    }
     document.querySelector("#js-search").style.animationName = "start-opacity";
+    document.querySelector("#js-close").style.animationName = "end-opacity";
+    document.querySelector("#js-searchbar-icon").style.animationName = "end-opacity"; 
     document.querySelector(".searchbar").value = "";
     document.querySelector(".searchbar").style.animationName = "end-opacity";
     document.querySelector("#body").classList.remove("stop-scrolling");
     document.getElementById("exitSearchViewElement").remove();
+    document.querySelector(".searchbar-wrapper").style.display = "none";
     if (searchResultElementsCreated) {
         removeSearchResultElements(publicCount, publicPreID);
     }
@@ -424,13 +450,15 @@ function closeSearchView() {
     if (this.timer) {
         window.clearTimeout(this.timer);
     }
-    this.timer = window.setTimeout(function() {    
+    this.timer = window.setTimeout(function() {
+        if (!(window.matchMedia("(min-width: 700px)").matches)) {
+            document.querySelector(".logo").style.display = "block";
+        }
+        document.querySelector("#js-search").style.display = "block";
         document.querySelector(".searchbar").classList.add("hide");
         document.querySelector(".search-result-container").classList.add("hide");
-        document.querySelector(".logo").style.display = "block";
         document.querySelector("#js-close").style.display = "none";
         document.querySelector("#js-searchbar-icon").style.display = "none";
-        document.querySelector("#js-search").style.display = "block";
     }, 100);
 }
 
@@ -492,7 +520,8 @@ window.onload = function() {
         var resultCount = 0;
         var queryText = getQuery();
         var resURL = DEEZER_SEARCH_URL + queryText;
-        document.querySelector("#results-header").innerHTML = 'Suchergebnisse für "' + queryText + '"';
+        document.querySelector("#results-header").innerHTML = 'Suchergebnisse für "' + queryText + '":';
+        document.querySelector("title").innerHTML = '"' + queryText + '" - lyricgem';
 
         fetch(resURL, {
             "method": "GET",

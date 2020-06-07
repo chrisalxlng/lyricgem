@@ -13,3 +13,19 @@
 .song-grid-element {
     margin-left: 0px;
 }
+
+@media (min-width: 500px) {
+    #res-grid {
+        grid-column-gap: 25px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .header-section {
+        padding-bottom: 50px;
+    }
+
+    .grid-section.section-padding {
+        padding-top: 0px;
+    }
+}

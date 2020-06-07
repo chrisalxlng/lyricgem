@@ -56,3 +56,63 @@
 .song-grid::-webkit-scrollbar {
     display: none;
 }
+
+@media (min-width: 500px) {
+    .h2-button-wrapper h2 {
+        font-size: 2.2vw;
+    }
+
+    .song-grid {
+        padding: 20px 0px 20px 15px;
+    }
+
+    .song-grid::after {
+        flex: 0 0 40px;
+    }
+}
+
+@media (min-width: 700px) {
+    .h2-button-wrapper h2 {
+        font-size: 2vw;
+    }
+
+    .song-grid {
+        padding: 20px 0px 20px 35px;
+    }
+
+    .song-grid::after {
+        flex: 0 0 60px;
+    }
+
+    #searchbar-main {
+        margin-top: 70px;
+        padding: 10px 15px 10px 30px;
+    }
+
+    .header-section {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .h2-button-wrapper h2 {
+        font-size: 20px;
+    }
+
+    .song-grid {
+        padding: 20px 0px 20px 55px;
+    }
+
+    .song-grid::after {
+        flex: 0 0 80px;
+    }
+
+    #searchbar-main {
+        padding: 13px 15px 13px 40px;
+    }
+
+    #js-searchbar-icon-main {
+        bottom: 26px;
+        left: 15px;
+    }
+}

@@ -164,3 +164,73 @@ pre {
         opacity: 1;
     }
 }
+
+@media (min-width: 500px) {
+    pre {
+        font-size: 2vw;
+    }
+
+    .song-info-wrapper {
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .song-info {
+        align-items: flex-start;
+        text-align: left;
+        height: 200px;
+    }
+
+    .title-info {
+        align-items: flex-start;
+    }
+
+    #title {
+        margin-top: 0;
+    }
+
+    .song-cover {
+        max-width: 180px;
+        max-height: 100%;
+    }
+
+    #deezer-link {
+        width: 100px;
+        height: 30px;
+        align-self: flex-start;
+    }
+
+    #song-preview i {
+        font-size: 12px;
+    }
+
+    .lyrics-section {
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 700px) {
+    pre {
+        font-size: 1.5vw;
+    }
+
+    #deezer-link {
+        width: 130px;
+        height: 35px;
+    }
+}
+
+@media (min-width: 1000px) {
+    pre {
+        font-size: 15px;
+    }
+
+    #deezer-link {
+        width: 150px;
+        height: 40px;
+    }
+
+    .lyrics-section {
+        padding-top: 60px;
+    }
+}
