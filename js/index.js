@@ -408,7 +408,7 @@ function openSearchView() {
 
     var exitSearchViewElement = document.createElement("div");
     exitSearchViewElement.id = "exitSearchViewElement";
-    exitSearchViewElement.style.zIndex = "50";
+    exitSearchViewElement.style.zIndex = "99";
     exitSearchViewElement.style.width = "100vw";
     exitSearchViewElement.style.height = "500vh";
     exitSearchViewElement.style.position = "absolute";

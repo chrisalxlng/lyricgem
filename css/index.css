@@ -79,6 +79,12 @@
     cursor: pointer;
     z-index: 90;
     font-size: 0.7em;
+    transition: .3s;
+}
+
+.button-chevron:hover {
+    transition: .3s;
+    background-color: var(--active-color);
 }
 
 .chevron-right {
