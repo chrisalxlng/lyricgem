@@ -42,8 +42,16 @@
             <div>
                 <div class="h2-button-wrapper page-padding">
                     <h2>Top Charts Weltweit</h2>
+                    <div class="button-wrapper">
+                        <div class="button-chevron chevron-left shadow" onclick="scrollGrid('left', '.grid-charts')">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="button-chevron chevron-right shadow" onclick="scrollGrid('right', '.grid-charts')">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="song-grid">
+                <div class="song-grid grid-charts">
                     <a class="song-grid-element shadow" id="charts-search-result-element-1">
                         <img id="charts-cover-1">
                         <p id="charts-title-1" class="grid-title"></p>
@@ -152,8 +160,16 @@
             <div>
                 <div class="h2-button-wrapper page-padding">
                     <h2>Trending in Deutschland</h2>
+                    <div class="button-wrapper">
+                        <div class="button-chevron chevron-left shadow" onclick="scrollGrid('left', '.grid-trends')">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="button-chevron chevron-right shadow" onclick="scrollGrid('right', '.grid-trends')">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="song-grid">
+                <div class="song-grid grid-trends">
                     <a class="song-grid-element shadow" id="trending-search-result-element-1">
                         <img id="trending-cover-1">
                         <p id="trending-title-1" class="grid-title"></p>
@@ -262,8 +278,16 @@
             <div>
                 <div class="h2-button-wrapper page-padding">
                     <h2>Beliebte Neuheiten</h2>
+                    <div class="button-wrapper">
+                        <div class="button-chevron chevron-left shadow" onclick="scrollGrid('left', '.grid-newhits')">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="button-chevron chevron-right shadow" onclick="scrollGrid('right', '.grid-newhits')">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="song-grid">
+                <div class="song-grid grid-newhits">
                     <a class="song-grid-element shadow" id="newhits-search-result-element-1">
                         <img id="newhits-cover-1">
                         <p id="newhits-title-1" class="grid-title"></p>

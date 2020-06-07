@@ -547,3 +547,24 @@ window.onload = function() {
 
 document.getElementById("js-search").addEventListener("click", openSearchView);
 document.getElementById("js-close").addEventListener("click", closeSearchView);
+
+function scrollGrid(direction, grid) {
+    if (window.matchMedia("(min-width: 700px)").matches) {
+        var scrollAmount = 600;
+    } else {
+        var scrollAmount = 300;
+    }
+
+    if (direction == "right") {
+        document.querySelector(grid).scrollBy({
+            left: scrollAmount,
+            behavior: "smooth"
+        });
+    }
+    if (direction == "left") {
+        document.querySelector(grid).scrollBy({
+            left: -scrollAmount,
+            behavior: "smooth"
+        });
+    }
+}
