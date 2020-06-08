@@ -70,9 +70,25 @@ function getAPIData (api_url, count, type, preID) {
                 }
             }
             else if (type == "song") {
-                var title = checkForStringLength(object.title_short, 15, 60);
-                var artist = checkForStringLength(object.artist.name, 20, 60);
-                var album = checkForStringLength(object.album.title, 20, 25);
+                if (window.matchMedia("(max-width: 699px)").matches) {
+                    var title = checkForStringLength(object.title_short, 15, 60);
+                    var artist = checkForStringLength(object.artist.name, 20, 30);
+                    var album = checkForStringLength(object.album.title, 20, 25);
+                }
+                else if (window.matchMedia("(max-width: 999px)").matches) {
+                    var title = checkForStringLength(object.title_short, 15, 60);
+                    var artist = checkForStringLength(object.artist.name, 20, 30);
+                    var album = checkForStringLength(object.album.title, 20, 40);
+                }
+                else if (window.matchMedia("(min-width: 1000px)").matches) {
+                    var title = checkForStringLength(object.title_short, 15, 60);
+                    var artist = checkForStringLength(object.artist.name, 20, 35);
+                    var album = checkForStringLength(object.album.title, 20, 50);
+                } else {
+                    var title = checkForStringLength(object.title_short, 15, 60);
+                    var artist = checkForStringLength(object.artist.name, 20, 30);
+                    var album = checkForStringLength(object.album.title, 20, 25);
+                }
                 document.getElementById("title").innerHTML = title;
                 document.getElementById("artist").innerHTML = artist;
                 document.getElementById("album").innerHTML = '"' + album + '"';
